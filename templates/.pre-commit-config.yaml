@@ -29,7 +29,3 @@ repos:
       name: private-keys
     - id: trailing-whitespace
       name: trailing-whitespace
-
-
-
-
