@@ -4,9 +4,11 @@ from dotenv import load_dotenv
 from termcolor import colored
 
 from utils.commands import (
+    check_precommit,
     create_project_directory,
     create_virtual_environment,
     initialize_git_repository,
+    install_precommit_hooks,
     setup_autoenv,
 )
 from utils.copy import copy_main_file, copy_precommit_config, copy_ruff_config
@@ -40,6 +42,8 @@ def main():
 
     if query_yes_no("Do you want to add a config file for pre-commit?"):
         copy_precommit_config(project_path)
+        if check_precommit():
+            install_precommit_hooks(project_path)
 
     copy_main_file(project_path)
 

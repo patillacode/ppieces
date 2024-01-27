@@ -8,6 +8,54 @@ from termcolor import colored
 from utils.constants import SCRIPTS_DIR, TEMPLATES_DIR
 
 
+def check_precommit():
+    try:
+        subprocess.run(
+            ["pre-commit", "--version"],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except Exception:
+        msg = colored(
+            (
+                "pre-commit is not installed. Please install it\n"
+                "pipx install pre-commit or brew install pre-commit"
+            ),
+            "red",
+            attrs=["bold"],
+        )
+        print(msg)
+        sys.exit()
+
+    return True
+
+
+def install_precommit_hooks(project_path):
+    msg = colored(
+        ("Installing pre-commit hooks..."),
+        "blue",
+        attrs=["bold"],
+    )
+    print(msg)
+
+    current_dir = os.getcwd()
+    os.chdir(project_path)
+    subprocess.run(
+        ["pre-commit", "install"],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    msg = colored(
+        ("Pre-commit hooks installed successfully."),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
+    os.chdir(current_dir)
+
+
 def setup_autoenv(project_path):
     subprocess.run(
         [os.path.join(f"./{SCRIPTS_DIR}", "setup_autoenv.sh"), project_path],
