@@ -11,7 +11,7 @@ from utils.commands import (
     setup_autoenv,
 )
 from utils.copy import copy_main_file, copy_precommit_config, copy_ruff_config
-from utils.prompts import bye, query_yes_no, welcome
+from utils.prompts import ask_user, bye, welcome
 
 
 def run_cli(
@@ -41,18 +41,9 @@ def run_cli(
             copy_ruff_config(project_path)
 
         if pre_commit:
-            if not git:
-                msg = colored(
-                    ("Cannot add pre-commit configuration without git. Ignoring..."),
-                    "red",
-                    attrs=["bold"],
-                )
-                print(msg)
-
-            else:
-                copy_precommit_config(project_path)
-                if check_precommit():
-                    install_precommit_hooks(project_path)
+            copy_precommit_config(project_path)
+            if check_precommit(git):
+                install_precommit_hooks(project_path)
 
         copy_main_file(project_path)
 
@@ -78,21 +69,21 @@ def run_cli(
 
         create_project_directory(project_path)
 
-        if query_yes_no("Do you want to initialize a git repository?"):
+        if git := ask_user("Do you want to initialize a git repository?"):
             initialize_git_repository(project_path)
 
-        if query_yes_no("Do you want to create a virtual environment?"):
+        if ask_user("Do you want to create a virtual environment?"):
             create_virtual_environment(project_path)
 
-        if query_yes_no("Do you want to set up autoenv?"):
+        if ask_user("Do you want to set up autoenv?"):
             setup_autoenv(project_path)
 
-        if query_yes_no("Do you want to add a config file for ruff?"):
+        if ask_user("Do you want to add a config file for ruff?"):
             copy_ruff_config(project_path)
 
-        if query_yes_no("Do you want to add a config file for pre-commit?"):
+        if ask_user("Do you want to add a config file for pre-commit?"):
             copy_precommit_config(project_path)
-            if check_precommit():
+            if check_precommit(git):
                 install_precommit_hooks(project_path)
 
         copy_main_file(project_path)

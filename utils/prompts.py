@@ -29,7 +29,7 @@ def bye():
     print(msg)
 
 
-def query_yes_no(question):
+def ask_user(question):
     valid = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
     prompt = " [y/n] "
     default = "yes"
