@@ -1,0 +1,31 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+fail_fast: true
+
+repos:
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: "v0.1.14"
+  hooks:
+    - id: ruff
+      name: ruff
+      args: [--fix, --exit-non-zero-on-fix]
+    - id: ruff-format
+      name: ruff-format
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.5.0
+  hooks:
+    - id: check-json
+      name: check-json
+    - id: check-toml
+      name: check-toml
+    - id: check-xml
+      name: check-xml
+    - id: check-yaml
+      name: check-yaml
+    - id: check-merge-conflict
+      name: merge-conflict
+    - id: detect-private-key
+      name: private-keys
+    - id: trailing-whitespace
+      name: trailing-whitespace

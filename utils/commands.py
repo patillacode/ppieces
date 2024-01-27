@@ -10,6 +10,11 @@ from utils.constants import SCRIPTS_DIR, TEMPLATES_DIR
 
 def check_precommit():
     try:
+        msg = colored(
+            ("Checking if pre-commit is installed..."),
+            "blue",
+            attrs=["bold"],
+        )
         subprocess.run(
             ["pre-commit", "--version"],
             check=True,
@@ -19,14 +24,21 @@ def check_precommit():
     except Exception:
         msg = colored(
             (
-                "pre-commit is not installed. Please install it\n"
+                "pre-commit is not installed. Please make sure to install it\n"
                 "pipx install pre-commit or brew install pre-commit"
             ),
             "red",
             attrs=["bold"],
         )
         print(msg)
-        sys.exit()
+
+        msg = colored(
+            ("Continuing without pre-commit. You can install it later.\n"),
+            "blue",
+            attrs=["bold"],
+        )
+        print(msg)
+        return False
 
     return True
 
@@ -156,11 +168,19 @@ def create_project_directory(project_path):
         )
         print(msg)
     except FileExistsError:
-        print()
         msg = colored(
-            (f"The directory '{project_path}' already exists. Aborting."),
+            (f"\nThe directory '{project_path}' already exists. Aborting."),
             "red",
             attrs=["bold"],
         )
         print(msg)
-        sys.exit()
+        msg = colored(
+            (
+                f"Delete the directory '{project_path}' and try again or give "
+                "a different project name."
+            ),
+            "yellow",
+            attrs=["bold"],
+        )
+        print(msg)
+        sys.exit(2)

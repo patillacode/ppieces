@@ -11,13 +11,12 @@ PROJECTS_DIR = "/Users/dvitto/projects"
 def welcome():
     os.system("clear")
     # lean isometric1 poison alligator larry3d trek chunky
-    fig = Figlet(font="trek")
+    fig = Figlet(font="larry3d")
     print()
-    print(colored(fig.renderText(" COOKIE "), "cyan"))
-    print(colored(fig.renderText("  CUTTER "), "cyan"))
+    print(colored(fig.renderText(" ppieces "), "cyan"))
 
     welcome_text = colored(
-        ("\nWelcome to Cookiecutter, a python project initializer!\n"),
+        ("\nWelcome to ppieces, a python project initializer!\n"),
         "red",
         attrs=["bold"],
     )
