@@ -1,2 +1,3 @@
 pyfiglet==0.8.post1
+python-dotenv==1.0.1
 termcolor==2.2.0

@@ -1,0 +1,118 @@
+import os
+import shutil
+import subprocess
+import sys
+
+from termcolor import colored
+
+from utils.constants import SCRIPTS_DIR, TEMPLATES_DIR
+
+
+def setup_autoenv(project_path):
+    subprocess.run(
+        [os.path.join(f"./{SCRIPTS_DIR}", "setup_autoenv.sh"), project_path],
+        check=True,
+    )
+
+
+def add_and_install_requirements(project_path):
+    shutil.copy(
+        os.path.join(TEMPLATES_DIR, "requirements.txt"),
+        os.path.join(project_path, "requirements.txt"),
+    )
+    msg = colored(
+        (f"Created a default requirements.txt file in {project_path}"),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
+    msg = colored(
+        ("Installing default requirements..."),
+        "blue",
+        attrs=["bold"],
+    )
+    print(msg)
+    subprocess.run(
+        [
+            f"{project_path}/venv/bin/pip",
+            "install",
+            "-r",
+            os.path.join(project_path, "requirements.txt"),
+            "--upgrade",
+        ],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    msg = colored(
+        ("Requirements installed successfully."),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
+
+
+def create_virtual_environment(project_path):
+    msg = colored(
+        ("Creating virtual environment..."),
+        "blue",
+        attrs=["bold"],
+    )
+    print(msg)
+    subprocess.run(
+        ["python", "-m", "venv", os.path.join(project_path, "venv")], check=True
+    )
+    msg = colored(
+        (f"Created a virtual environment in {project_path}/venv"),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
+    msg = colored(
+        ("Upgrading venv pip..."),
+        "blue",
+        attrs=["bold"],
+    )
+    print(msg)
+
+    subprocess.run(
+        [f"{project_path}/venv/bin/pip", "install", "--upgrade", "pip"],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    add_and_install_requirements(project_path)
+
+
+def initialize_git_repository(project_path):
+    subprocess.run(["git", "init", project_path], check=True)
+    shutil.copy(
+        os.path.join(TEMPLATES_DIR, ".gitignore"),
+        os.path.join(project_path, ".gitignore"),
+    )
+    msg = colored(
+        (f"Added a default .gitignore to {project_path}."),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
+
+
+def create_project_directory(project_path):
+    try:
+        os.makedirs(project_path)
+        msg = colored(
+            (f"Project directory '{project_path}' created."),
+            "yellow",
+            attrs=["bold"],
+        )
+        print(msg)
+    except FileExistsError:
+        print()
+        msg = colored(
+            (f"The directory '{project_path}' already exists. Aborting."),
+            "red",
+            attrs=["bold"],
+        )
+        print(msg)
+        sys.exit()
