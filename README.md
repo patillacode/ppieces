@@ -11,15 +11,20 @@ It automates various tasks such as creating project directories, initializing gi
 
 `ppieces` can be used in an interactive mode or with command-line options for scripting:
 
+```bash
+Usage: main.py [OPTIONS]
+
 Options:
-- `-n`, `--name` project_name: Specify the name of the new project.
-- `-v`, `--virtual-env`: Create a virtual environment if given.
-- `-pre`, `--pre-commit`: Add pre-commit configuration if given.
-- `-r`, `--ruff`: Add a ruff configuration file if given.
-- `-a`, `--autoenv`: Set up autoenv if given.
-- `-p`, `--project-folder` project_folder_path: Override the `PROJECTS_DIR` from the .env file if given.
-- `-i`, `--interactive`: Run the script in interactive mode (default behavior).
-- `-g`, `--git`: Initialize a git repository if given.
+  -ni, --non-interactive     Run the script in non-interactive mode.
+  -p, --project-folder PATH  The path to your projects folder.
+  -n, --project-name TEXT    The name of the new project.
+  -v, --virtual-env          Create a virtual environment.
+  -pre, --pre-commit         Add pre-commit configuration.
+  -r, --ruff                 Add a ruff configuration file.
+  -a, --autoenv              Set up autoenv.
+  -g, --git                  Initialize a git repository.
+  --help                     Show this message and exit.
+```
 
 Example usage:
 ```bash
@@ -63,8 +68,10 @@ Optional:
 Clone the repository and install the required dependencies:
 
 ```bash
-git clone https://github.com/your-username/ppieces.git
+git clone https://github.com/patillacode/ppieces.git
 cd ppieces
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
