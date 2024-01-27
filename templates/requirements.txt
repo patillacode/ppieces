@@ -1,0 +1,3 @@
+icecream
+python-dotenv
+requests

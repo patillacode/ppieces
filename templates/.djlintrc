@@ -1,0 +1,9 @@
+{
+    "format_attribute_template_tags": true,
+    "preserve_leading_space": false,
+    "ignore_case": true,
+    "profile": "django",
+    "use_gitignore": true,
+    "max_line_length": "120",
+    "ignore": "H006,H025"
+}

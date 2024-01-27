@@ -1,1 +1,4 @@
 .aider*
+.autoenv.sh
+.autoenv_leave.sh
+venv
