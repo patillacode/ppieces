@@ -1,7 +1,4 @@
 import os
-import shutil
-
-import click
 
 from termcolor import colored
 
@@ -9,6 +6,7 @@ from utils.commands import (
     check_precommit,
     create_project_directory,
     create_virtual_environment,
+    delete_path,
     initialize_git_repository,
     install_precommit_hooks,
     setup_autoenv,
@@ -54,6 +52,8 @@ def run_cli(
         else:
             welcome()
 
+            precommit_ok = False
+
             default_projects_folder_path = os.path.join(os.getenv("HOME"), "projects")
             projects_folder_path = input(
                 colored(
@@ -63,6 +63,7 @@ def run_cli(
                     attrs=["bold"],
                 )
             )
+
             if not projects_folder_path:
                 projects_folder_path = default_projects_folder_path
 
@@ -87,29 +88,25 @@ def run_cli(
 
             if ask_user("Do you want to add a config file for pre-commit?"):
                 copy_precommit_config(project_path)
-                if check_precommit(git):
+                if precommit_ok := check_precommit(git):
                     install_precommit_hooks(project_path)
 
             copy_main_file(project_path)
+
+            if not precommit_ok:
+                msg = colored(
+                    (
+                        "\n\nWARNING: pre-commit is not installed. "
+                        "Please install it manually."
+                    ),
+                    "red",
+                    attrs=["bold"],
+                )
+                print(msg)
 
             bye()
 
     except KeyboardInterrupt:
         print(colored("\nAborting...", "red", attrs=["bold"]))
         if project_path and os.path.exists(project_path):
-            if click.confirm(
-                colored(
-                    f"Do you want to delete the {project_path} folder?",
-                    "red",
-                    attrs=["bold"],
-                ),
-                default=False,
-            ):
-                shutil.rmtree(project_path)
-                click.echo(
-                    colored(
-                        f"{project_path} deleted.",
-                        "blue",
-                        attrs=["bold"],
-                    )
-                )
+            delete_path(project_path)

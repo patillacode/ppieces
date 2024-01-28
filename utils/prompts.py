@@ -27,7 +27,7 @@ def welcome():
 
 
 def bye():
-    msg: str = colored("\nAll set! Happy coding!\n", "red", attrs=["bold"])
+    msg: str = colored("\nAll set! Happy coding!\n", "blue", attrs=["bold"])
     print(msg)
 
 

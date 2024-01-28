@@ -1,12 +1,15 @@
 import os
+import shutil
 import subprocess
-import sys
+
+import click
 
 from rich.console import Console
 from termcolor import colored
 
 from utils.constants import SCRIPTS_DIR
 from utils.copy import copy_file
+from utils.prompts import ask_user
 
 console = Console()
 
@@ -157,4 +160,21 @@ def create_project_directory(project_path):
             attrs=["bold"],
         )
         print(msg)
-        sys.exit(2)
+
+        if delete_path(project_path):
+            return create_project_directory(project_path)
+
+        raise click.Abort()
+
+
+def delete_path(project_path):
+    if ask_user(f"\nDo you want to delete the {project_path} folder?"):
+        shutil.rmtree(project_path)
+        click.echo(
+            colored(
+                f"{project_path} deleted.",
+                "red",
+                attrs=["bold"],
+            )
+        )
+        return True
