@@ -3,4 +3,5 @@ __pycache__/
 .autoenv.sh
 .autoenv_leave.sh
 .env
+dist/
 venv
