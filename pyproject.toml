@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ppieces"
-version = "0.1.0"
+version = "0.1.10"
 description = "A command-line utility to streamline the setup of new Python projects."
 authors = [{name = "Patilla Code", email = "patillacode@gmail.com"}]
 license = {text = "MIT"}
@@ -27,6 +27,9 @@ dependencies = [
 [project.urls]
 homepage = "https://github.com/patillacode/ppieces"
 repository = "https://github.com/patillacode/ppieces"
+
+[project.scripts]
+ppieces = "ppieces.main:main"
 
 [tool.hatch.build.targets.sdist]
 only-include = ["ppieces", "tests", "pyproject.toml", "README.md", "LICENSE"]

@@ -1,6 +1,6 @@
 import click
 
-from utils.cli import run_cli
+from ppieces.utils.cli import run_cli
 
 
 @click.command()
