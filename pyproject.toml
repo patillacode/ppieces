@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ppieces"
-version = "0.1.14"
+version = "0.1.16"
 description = "A command-line utility to streamline the setup of new Python projects."
 authors = [{name = "Patilla Code", email = "patillacode@gmail.com"}]
 license = {text = "MIT"}
