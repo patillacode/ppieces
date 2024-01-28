@@ -2,7 +2,6 @@ test-pypi: test-pypi-release
 pypi: pypi-release
 
 
-# venv/bin/pip install -e .
 install:
 	python -m venv venv
 	venv/bin/pip install --upgrade pip
