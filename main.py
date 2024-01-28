@@ -1,10 +1,4 @@
-import os
-import shutil
-import subprocess
-
 import click
-
-from termcolor import colored
 
 from utils.cli import run_cli
 
@@ -71,50 +65,22 @@ def main(
     non_interactive,
     git,
 ):
-    try:
-        if non_interactive and not project_name and not project_folder:
-            raise click.UsageError(
-                "The project name and project folder must be provided when running in "
-                "non-interactive mode."
-            )
-
-        run_cli(
-            non_interactive,
-            project_folder,
-            project_name,
-            virtual_env,
-            pre_commit,
-            ruff,
-            autoenv,
-            git,
+    if non_interactive and not project_name and not project_folder:
+        raise click.UsageError(
+            "The project name and project folder must be provided when running in "
+            "non-interactive mode."
         )
-    except KeyboardInterrupt:
-        print(colored("\n\nKeyboard interrupt detected.", "red", attrs=["bold"]))
-        if project_folder and project_name and os.path.exists(project_folder):
-            if click.confirm(
-                f"Do you want to delete the {project_folder}/{project_name}?",
-                default=False,
-            ):
-                shutil.rmtree(os.path.join(project_folder, project_name))
-                click.echo(
-                    colored(
-                        f"{project_folder}/{project_name} deleted.",
-                        "yellow",
-                        attrs=["bold"],
-                    )
-                )
-    except subprocess.CalledProcessError as err:
-        print(colored(err, "red", attrs=["bold"]))
-        print(colored("Aborting...", "red", attrs=["bold"]))
-        if project_folder and project_name and os.path.exists(project_folder):
-            shutil.rmtree(os.path.join(project_folder, project_name))
-            click.echo(
-                colored(
-                    f"Cleaning up after error: {project_folder}/{project_name} deleted.",
-                    "yellow",
-                    attrs=["bold"],
-                )
-            )
+
+    run_cli(
+        non_interactive,
+        project_folder,
+        project_name,
+        virtual_env,
+        pre_commit,
+        ruff,
+        autoenv,
+        git,
+    )
 
 
 if __name__ == "__main__":

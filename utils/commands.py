@@ -138,6 +138,9 @@ def create_project_directory(project_path):
             attrs=["bold"],
         )
         print(msg)
+
+        return project_path
+
     except FileExistsError:
         msg = colored(
             (f"\nThe directory '{project_path}' already exists. Aborting."),
@@ -150,7 +153,7 @@ def create_project_directory(project_path):
                 f"Delete the directory '{project_path}' and try again or give "
                 "a different project name."
             ),
-            "yellow",
+            "blue",
             attrs=["bold"],
         )
         print(msg)
