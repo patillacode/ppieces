@@ -17,3 +17,8 @@ pypi-release:
 	hatch clean
 	hatch build
 	hatch publish
+
+bamp-patch:
+	bamp patch
+	git add --all
+	git commit -m "Bump version: $(shell bamp current-version)"
