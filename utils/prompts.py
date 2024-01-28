@@ -1,4 +1,5 @@
 import os
+import random
 
 from pyfiglet import Figlet
 from termcolor import colored
@@ -10,14 +11,14 @@ PROJECTS_DIR = "/Users/dvitto/projects"
 
 def welcome():
     os.system("clear")
-    # lean isometric1 poison alligator larry3d trek chunky
-    fig = Figlet(font="trek")
+    # isometric1, chunky, poison, cybermedium
+    font = random.choice(["lean", "cyberlarge", "alligator", "larry3d", "trek"])
+    fig = Figlet(font=font)
     print()
-    print(colored(fig.renderText(" COOKIE "), "cyan"))
-    print(colored(fig.renderText("  CUTTER "), "cyan"))
+    print(colored(fig.renderText(" ppieces"), "cyan"))
 
     welcome_text = colored(
-        ("\nWelcome to Cookiecutter, a python project initializer!\n"),
+        ("\nWelcome to ppieces, a python project initializer!\n"),
         "red",
         attrs=["bold"],
     )
@@ -26,13 +27,13 @@ def welcome():
 
 
 def bye():
-    msg: str = colored("\nAll set! Happy coding!\n", "red", attrs=["bold"])
+    msg: str = colored("\nAll set! Happy coding!\n", "blue", attrs=["bold"])
     print(msg)
 
 
-def query_yes_no(question):
+def ask_user(question):
     valid = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
-    prompt = " [y/n] "
+    prompt = " [Y/n] "
     default = "yes"
     while True:
         print(colored(f"{question}{prompt}", "cyan", attrs=["bold"]), end="")
