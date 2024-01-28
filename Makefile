@@ -1,3 +1,6 @@
+test-pypi: test-pypi-release
+pypi: pypi-release
+
 
 # venv/bin/pip install -e .
 install:
@@ -20,5 +23,15 @@ pypi-release:
 
 bamp-patch:
 	bamp patch
+	git add --all
+	git commit -m "Bump version: $(shell bamp current-version)"
+
+bamp-minor:
+	bamp minor
+	git add --all
+	git commit -m "Bump version: $(shell bamp current-version)"
+
+bamp-major:
+	bamp major
 	git add --all
 	git commit -m "Bump version: $(shell bamp current-version)"
