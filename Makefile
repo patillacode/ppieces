@@ -33,17 +33,17 @@ version:
 # PyPi
 test-pypi-release:
 	$(info Removing old build...)
-	@$(HATCH) clean
+	rm -rf dist/
 	$(info Building new version...)
-	@$(HATCH) build
+	python -m build
 	$(info Publishing to test.pypi.org...)
 	@$(HATCH) publish --repo https://test.pypi.org/legacy/
 
 pypi-release:
 	$(info Removing old build...)
-	@$(HATCH) clean
+	rm -rf dist/
 	$(info Building new version...)
-	@$(HATCH) build
+	python -m build
 	$(info Publishing to pypi.org...)
 	@$(HATCH) publish
 
