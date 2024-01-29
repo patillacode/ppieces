@@ -1,36 +1,61 @@
-test-pypi: test-pypi-release
-pypi: pypi-release
+PYTHON = python
+PIP = venv/bin/pip
+BAMP = bamp
+HATCH = hatch
+GIT = git
 
+.PHONY: install version test-pypi-release pypi-release bamp-patch bamp-minor bamp-major
 
+# utils
 install:
-	python -m venv venv
-	venv/bin/pip install --upgrade pip
-	venv/bin/pip install -e .
+	$(info Creating virtual environment...)
+	@$(PYTHON) -m venv venv
+	$(info Upgrading pip...)
+	@$(PIP) install --upgrade pip
+	$(info Installing package in editable mode...)
+	@$(PIP) install -e .
 
+version:
+	@$(BAMP) current
 
-test-pypi-release:
-	bamp patch
-	hatch clean
-	hatch build
-	hatch publish --repo https://test.pypi.org/legacy/
+# PyPi
+test-pypi-release: bamp-patch
+	$(info Removing old build...)
+	@$(HATCH) clean
+	$(info Building new version...)
+	@$(HATCH) build
+	$(info Publishing to test.pypi.org...)
+	@$(HATCH) publish --repo https://test.pypi.org/legacy/
 
-pypi-release:
-	bamp patch
-	hatch clean
-	hatch build
-	hatch publish
+pypi-release: bamp-patch
+	$(info Removing old build...)
+	@$(HATCH) clean
+	$(info Building new version...)
+	@$(HATCH) build
+	$(info Publishing to pypi.org...)
+	@$(HATCH) publish
 
+# Bamping
 bamp-patch:
-	bamp patch
-	git add --all
-	git commit -m "Bump version: $(shell bamp current-version)"
+	$(info Setting version (patch)...)
+	@$(BAMP) patch
+	$(info Adding changes to git...)
+	@$(GIT) add --all
+	$(info Committing changes...)
+	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
 
 bamp-minor:
-	bamp minor
-	git add --all
-	git commit -m "Bump version: $(shell bamp current-version)"
+	$(info Setting version (minor)...)
+	@$(BAMP) minor
+	$(info Adding changes to git...)
+	@$(GIT) add --all
+	$(info Committing changes...)
+	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
 
 bamp-major:
-	bamp major
-	git add --all
-	git commit -m "Bump version: $(shell bamp current-version)"
+	$(info Setting version (major)...)
+	@$(BAMP) major
+	$(info Adding changes to git...)
+	@$(GIT) add --all
+	$(info Committing changes...)
+	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
