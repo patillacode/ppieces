@@ -2,7 +2,7 @@ import os
 
 from termcolor import colored
 
-from utils.commands import (
+from ppieces.utils.commands import (
     check_precommit,
     create_project_directory,
     create_virtual_environment,
@@ -11,8 +11,8 @@ from utils.commands import (
     install_precommit_hooks,
     setup_autoenv,
 )
-from utils.copy import copy_main_file, copy_precommit_config, copy_ruff_config
-from utils.prompts import ask_user, bye, welcome
+from ppieces.utils.copy import copy_main_file, copy_precommit_config, copy_ruff_config
+from ppieces.utils.prompts import ask_user, bye, welcome
 
 
 def run_cli(
@@ -25,6 +25,7 @@ def run_cli(
     autoenv,
     git,
 ):
+    project_path = None
     try:
         if non_interactive:
             project_path = os.path.join(project_folder, project_name)

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+# pipx is not compatible with hatchling, until it is, we will use setuptools
+# requires = ["hatchling"]
+# build-backend = "hatchling.build"
+
+[project]
+name = "ppieces"
+version = "0.2.11"
+description = "A command-line utility to streamline the setup of new Python projects."
+authors = [{name = "Patilla Code", email = "patillacode@gmail.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "bamp==1.2.0",
+    "click==7.1.2",
+    "pyfiglet==0.8.post1",
+    "rich==13.4.1",
+    "termcolor==2.2.0",
+]
+
+[project.urls]
+homepage = "https://github.com/patillacode/ppieces"
+repository = "https://github.com/patillacode/ppieces"
+
+[project.scripts]
+ppieces = "ppieces.main:main"
+
+[tool.hatch.build.targets.sdist]
+only-include = ["ppieces", "tests", "pyproject.toml", "README.md", "LICENSE"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["ppieces", "tests", "pyproject.toml", "README.md", "LICENSE"]

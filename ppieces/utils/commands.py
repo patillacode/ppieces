@@ -7,9 +7,9 @@ import click
 from rich.console import Console
 from termcolor import colored
 
-from utils.constants import SCRIPTS_DIR
-from utils.copy import copy_file
-from utils.prompts import ask_user
+from ppieces.utils.constants import SCRIPTS_DIR
+from ppieces.utils.copy import copy_file
+from ppieces.utils.prompts import ask_user
 
 console = Console()
 
@@ -76,7 +76,7 @@ def install_precommit_hooks(project_path):
 
 def setup_autoenv(project_path):
     subprocess.run(
-        [os.path.join(f"./{SCRIPTS_DIR}", "setup_autoenv.sh"), project_path],
+        [os.path.join(f"{SCRIPTS_DIR}", "setup_autoenv.sh"), project_path],
         check=True,
     )
 

@@ -1,5 +1,6 @@
 ## ppieces
 
+
 ### What?
 
 Python Project Creator Script -> PPCS -> PythonPieCeS -> ppieces
@@ -7,12 +8,75 @@ Python Project Creator Script -> PPCS -> PythonPieCeS -> ppieces
 `ppieces` is a command-line utility designed to streamline the setup of new Python projects.
 It automates various tasks such as creating project directories, initializing git repositories, setting up virtual environments, and installing pre-commit hooks.
 
-### Command Line Interface (CLI)
 
-`ppieces` can be used in an interactive mode or with command-line options for scripting:
+### Why?
 
+I tend to always have a python project or two on the go, usually for my own benefit, little scripts to make my day to day easier/faster/automated or just learning new things or experimenting with ideas.
+
+Because of that I found myself repeating the same steps over and over again when setting up new Python projects. *Same song & dance*.
+
+I wanted a way to automate the setup for new projects, so I created `ppieces`.
+
+
+### Installation
+
+#### Plug & Play:
 ```bash
-Usage: main.py [OPTIONS]
+# Install via pipx, recommended since you will most likely want to use this tool globally.
+pipx install ppieces
+
+# Install via pip, if you prefer to use a virtual environment.
+pip install ppieces
+```
+
+#### Install for development:
+
+Clone the repository:
+```bash
+git clone https://github.com/patillacode/ppieces.git
+cd ppieces
+```
+
+Install the dependencies and the package:
+```bash
+make install
+
+# or manually:
+
+python -m venv venv
+source venv/bin/activate
+pip install -e .
+```
+
+#### System Requirements
+
+Before using `ppieces`, ensure you have the following installed:
+
+- Python >= `3.10`
+
+Optional:
+- `pre-commit` (can be installed via `pipx` or `Homebrew` - see [here](https://pre-commit.com/#install) for more details)
+- `autoenv` (optional for auto-activation of virtual environments - see [here](https://github.com/hyperupcall/autoenv?tab=readme-ov-file) for more details)
+
+
+### Usage
+
+1. Run the `ppieces` script.
+2. Follow the interactive prompts to configure your new project.
+3. Start coding!
+
+`ppieces` can be used in an interactive mode (by default) or with command-line options for scripting:
+
+Interactive mode will ask you a series of questions to configure your new project.
+```bash
+$ ppieces
+```
+
+For scripting, use the following options:
+```bash
+$ ppieces --help
+
+Usage: ppieces [OPTIONS]
 
 Options:
   -ni, --non-interactive     Run the script in non-interactive mode.
@@ -23,18 +87,14 @@ Options:
   -r, --ruff                 Add a ruff configuration file.
   -a, --autoenv              Set up autoenv.
   -g, --git                  Initialize a git repository.
+  --version                  Show the version of ppieces.
   --help                     Show this message and exit.
 ```
 
 Example usage:
 ```bash
-ppieces --name my_project --virtual-env --pre-commit --ruff --autoenv --git
+ppieces -ni -p /home/user/projects -n test -v -pre -r -a -g
 ```
-
-### Why?
-
-I found myself repeating the same steps over and over again when setting up new Python projects.
-I wanted a way to automate these tasks so I could get started on my projects faster.
 
 
 ### Features
@@ -47,33 +107,21 @@ I wanted a way to automate these tasks so I could get started on my projects fas
 - **Pre-commit Hooks**: Installs pre-commit hooks to ensure code quality and standards are maintained.
 - **Template Files**: Provides template files like `.gitignore`, `requirements.txt`, and `.pre-commit-config.yaml` to get started quickly.
 
-### Usage
 
-1. Run the `ppieces` script.
-2. Follow the interactive prompts to configure your new project.
-3. Start coding!
+### Acknowledgments
 
-### Requirements
+This project makes use of several open-source packages including, but not limited to:
+- [`autoenv`](https://github.com/hyperupcall/autoenv?tab=readme-ov-file)
+- [`bamp`](https://github.com/inirudebwoy/bamp)
+- [`hatch`](https://hatch.pypa.io/latest/)
+- [`icecream`](https://github.com/gruns/icecream)
+- [`pre-commit`](https://pre-commit.com/)
+- [`pyfiglet`](https://github.com/pwaller/pyfiglet)
+- [`rich`](https://github.com/Textualize/rich)
+- [`termcolor`](https://github.com/termcolor/termcolor)
 
-Before using `ppieces`, ensure you have the following installed:
+A big thank you to the maintainers of all these projects and the python and open-source communities in general.
 
-- Python >= 3.10
-
-Optional:
-- `pre-commit` (can be installed via pipx or Homebrew - see [here](https://pre-commit.com/#install) for more details)
-- `autoenv` (optional for auto-activation of virtual environments - see [here](https://github.com/hyperupcall/autoenv?tab=readme-ov-file) for more details)
-
-### Installation
-
-Clone the repository and install the required dependencies:
-
-```bash
-git clone https://github.com/patillacode/ppieces.git
-cd ppieces
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
 
 ### Contributing
 
@@ -81,12 +129,8 @@ Contributions are welcome!
 
 If you have a feature request, bug report, or a pull request, please open an issue or submit a PR.
 
+
 ### License
 
 `ppieces` is released under the MIT License. See the LICENSE file for more details.
 
-### Acknowledgments
-
-This project makes use of several open-source packages such as `pyfiglet`, `termcolor`, `python-dotenv`, `autoenv` and `pre-commit`.
-
-A big thank you to the maintainers of all these projects.

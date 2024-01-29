@@ -3,7 +3,7 @@ import shutil
 
 from termcolor import colored
 
-from utils.constants import TEMPLATES_DIR
+from ppieces.utils.constants import TEMPLATES_DIR
 
 
 def copy_file(filename, project_path):

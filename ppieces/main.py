@@ -1,6 +1,6 @@
 import click
 
-from utils.cli import run_cli
+from ppieces.utils.cli import run_cli
 
 
 @click.command()
@@ -55,6 +55,11 @@ from utils.cli import run_cli
     is_flag=True,
     help="Initialize a git repository.",
 )
+@click.option(
+    "--version",
+    is_flag=True,
+    help="Show the version of ppieces.",
+)
 def main(
     project_folder,
     project_name,
@@ -64,7 +69,14 @@ def main(
     autoenv,
     non_interactive,
     git,
+    version,
 ):
+    if version:
+        from . import __version__
+
+        click.echo(__version__)
+        return
+
     if non_interactive and not project_name and not project_folder:
         raise click.UsageError(
             "The project name and project folder must be provided when running in "
