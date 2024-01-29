@@ -72,6 +72,9 @@ Interactive mode will ask you a series of questions to configure your new projec
 $ ppieces
 ```
 
+https://github.com/patillacode/ppieces/assets/10074977/4ba02798-3fda-4c35-87c4-8e782f83819a
+
+
 For scripting, use the following options:
 ```bash
 $ ppieces --help
