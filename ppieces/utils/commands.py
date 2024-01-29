@@ -24,7 +24,7 @@ def check_precommit(git):
         msg = colored(
             (
                 "Cannot install pre-commit without git. "
-                "Copying file but not installing hooks..."
+                "Config file copied but not installing hooks..."
             ),
             "red",
             attrs=["bold"],
@@ -170,14 +170,14 @@ def initial_commit(project_path):
             stderr=subprocess.DEVNULL,
         )
         subprocess.run(
-            ["git", "commit", "-m", "Initial commit"],
+            ["git", "commit", "-m", "initial commit"],
             cwd=project_path,
             check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
     msg = colored(
-        ("Initial commit created successfully!"),
+        ("Created initial commit successfully!"),
         "yellow",
         attrs=["bold"],
     )
