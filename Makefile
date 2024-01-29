@@ -59,3 +59,7 @@ bamp-major:
 	@$(GIT) add --all
 	$(info Committing changes...)
 	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
+
+# Aliases
+test-pypi: test-pypi-release
+pypi: pypi-release
