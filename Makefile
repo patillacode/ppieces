@@ -15,6 +15,15 @@ install:
 	$(info Installing package in editable mode...)
 	@$(PIP) install -e .
 
+tag:
+	$(info Tagging commit...)
+	@$(GIT) tag v$(shell $(BAMP) current)
+
+push:
+	$(info Pushing commit and tag...)
+	@$(GIT) push
+	@$(GIT) push --tags
+
 version:
 	@$(BAMP) current
 
@@ -54,5 +63,11 @@ commit-bamp:
 	@$(GIT) commit -m "Bamp version to $(shell $(BAMP) current)"
 
 # Aliases
-test-pypi: patch test-pypi-release
-pypi: patch pypi-release
+patch-release: patch commit-bamp tag pypi-release
+patch-test-release: patch commit-bamp tag test-pypi-release
+
+minor-release: minor commit-bamp tag pypi-release
+minor-test-release: minor commit-bamp tag test-pypi-release
+
+major-release: major commit-bamp tag pypi-release
+major-test-release: major commit-bamp tag test-pypi-release
