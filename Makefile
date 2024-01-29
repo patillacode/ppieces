@@ -21,7 +21,7 @@ tag:
 
 push:
 	$(info Pushing commit and tag...)
-	@$(GIT) push
+	@$(GIT) push origin
 	@$(GIT) push --tags
 
 version:
@@ -63,11 +63,11 @@ commit-bamp:
 	@$(GIT) commit -m "Bamp version to $(shell $(BAMP) current)"
 
 # Aliases
-patch-release: patch commit-bamp tag pypi-release
-patch-test-release: patch commit-bamp tag test-pypi-release
+patch-release: patch commit-bamp tag push pypi-release
+patch-test-release: patch commit-bamp test-pypi-release
 
-minor-release: minor commit-bamp tag pypi-release
-minor-test-release: minor commit-bamp tag test-pypi-release
+minor-release: minor commit-bamp tag push pypi-release
+minor-test-release: minor commit-bamp test-pypi-release
 
-major-release: major commit-bamp tag pypi-release
-major-test-release: major commit-bamp tag test-pypi-release
+major-release: major commit-bamp tag push pypi-release
+major-test-release: major commit-bamp test-pypi-release
