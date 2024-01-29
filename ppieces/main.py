@@ -35,6 +35,12 @@ from ppieces.utils.cli import run_cli
     help="Create a virtual environment.",
 )
 @click.option(
+    "-g",
+    "--git",
+    is_flag=True,
+    help="Initialize a git repository (with .gitignore and README files)",
+)
+@click.option(
     "-pre",
     "--pre-commit",
     is_flag=True,
@@ -53,12 +59,6 @@ from ppieces.utils.cli import run_cli
     help="Set up autoenv.",
 )
 @click.option(
-    "-g",
-    "--git",
-    is_flag=True,
-    help="Initialize a git repository (with .gitignore and README files)",
-)
-@click.option(
     "-u",
     "--username",
     type=str,
@@ -72,14 +72,14 @@ from ppieces.utils.cli import run_cli
     help="Show the version of ppieces.",
 )
 def main(
+    non_interactive,
     project_folder,
     project_name,
     virtual_env,
+    git,
     pre_commit,
     ruff,
     autoenv,
-    non_interactive,
-    git,
     username,
     version,
 ):
@@ -98,10 +98,10 @@ def main(
         project_folder,
         project_name,
         virtual_env,
+        git,
         pre_commit,
         ruff,
         autoenv,
-        git,
         username,
     )
 

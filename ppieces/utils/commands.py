@@ -1,6 +1,7 @@
 import os
 import shutil
 import subprocess
+import sys
 
 import click
 
@@ -215,7 +216,7 @@ def create_project_directory(project_path, interactive=False):
         if interactive and delete_path(project_path):
             return create_project_directory(project_path)
 
-        raise click.Abort()
+        sys.exit(1)
 
 
 def delete_path(project_path):
