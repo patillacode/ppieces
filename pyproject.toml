@@ -16,7 +16,8 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "click==8.1.7",
+    "bamp==1.2.0",
+    "click==7.1.2",
     "pyfiglet==0.8.post1",
     "rich==13.4.1",
     "termcolor==2.2.0",
