@@ -19,7 +19,7 @@ version:
 	@$(BAMP) current
 
 # PyPi
-test-pypi-release: bamp-patch
+test-pypi-release:
 	$(info Removing old build...)
 	@$(HATCH) clean
 	$(info Building new version...)
@@ -27,7 +27,7 @@ test-pypi-release: bamp-patch
 	$(info Publishing to test.pypi.org...)
 	@$(HATCH) publish --repo https://test.pypi.org/legacy/
 
-pypi-release: bamp-patch
+pypi-release:
 	$(info Removing old build...)
 	@$(HATCH) clean
 	$(info Building new version...)
@@ -61,5 +61,5 @@ bamp-major:
 	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
 
 # Aliases
-test-pypi: test-pypi-release
-pypi: pypi-release
+test-pypi: bamp-patch test-pypi-release
+pypi: bamp-patch pypi-release
