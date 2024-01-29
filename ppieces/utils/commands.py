@@ -130,6 +130,10 @@ def create_virtual_environment(project_path):
 def initialize_git_repository(project_path):
     subprocess.run(["git", "init", project_path], check=True)
     copy_file(".gitignore", project_path)
+    subprocess.run(["git", "add", "."], cwd=project_path, check=True)
+    subprocess.run(
+        ["git", "commit", "-m", "Initial commit"], cwd=project_path, check=True
+    )
 
 
 def create_project_directory(project_path):

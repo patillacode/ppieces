@@ -31,9 +31,6 @@ def run_cli(
             project_path = os.path.join(project_folder, project_name)
             create_project_directory(project_path)
 
-            if git:
-                initialize_git_repository(project_path)
-
             if virtual_env:
                 create_virtual_environment(project_path)
 
@@ -49,6 +46,11 @@ def run_cli(
                     install_precommit_hooks(project_path)
 
             copy_main_file(project_path)
+
+            # this should be the last step since we are making the initial commit
+            # AFTER all the template files are copied to the new project folder
+            if git:
+                initialize_git_repository(project_path)
 
         else:
             welcome()
@@ -75,9 +77,6 @@ def run_cli(
 
             create_project_directory(project_path)
 
-            if git := ask_user("Do you want to initialize a git repository?"):
-                initialize_git_repository(project_path)
-
             if ask_user("Do you want to create a virtual environment?"):
                 create_virtual_environment(project_path)
 
@@ -93,6 +92,11 @@ def run_cli(
                     install_precommit_hooks(project_path)
 
             copy_main_file(project_path)
+
+            # this should be the last step since we are making the initial commit
+            # AFTER all the template files are copied to the new project folder
+            if git := ask_user("Do you want to initialize a git repository?"):
+                initialize_git_repository(project_path)
 
             if not precommit_ok:
                 msg = colored(
