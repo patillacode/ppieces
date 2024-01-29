@@ -19,9 +19,12 @@ tag:
 	$(info Tagging commit...)
 	@$(GIT) tag v$(shell $(BAMP) current)
 
+current-branch:
+	@$(GIT) rev-parse --abbrev-ref HEAD
+
 push:
 	$(info Pushing commit and tag...)
-	@$(GIT) push origin
+	@$(GIT) push origin $(shell $(GIT) rev-parse --abbrev-ref HEAD)
 	@$(GIT) push --tags
 
 version:
