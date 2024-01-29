@@ -42,7 +42,7 @@ bamp-patch:
 	$(info Adding changes to git...)
 	@$(GIT) add --all
 	$(info Committing changes...)
-	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
+	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current)"
 
 bamp-minor:
 	$(info Setting version (minor)...)
@@ -50,7 +50,7 @@ bamp-minor:
 	$(info Adding changes to git...)
 	@$(GIT) add --all
 	$(info Committing changes...)
-	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
+	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current)"
 
 bamp-major:
 	$(info Setting version (major)...)
@@ -58,7 +58,7 @@ bamp-major:
 	$(info Adding changes to git...)
 	@$(GIT) add --all
 	$(info Committing changes...)
-	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current-version)"
+	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current)"
 
 # Aliases
 test-pypi: bamp-patch test-pypi-release
