@@ -44,11 +44,14 @@ minor:
 	$(info Setting version (minor)...)
 	@$(BAMP) minor
 
-
 major:
 	$(info Setting version (major)...)
 	@$(BAMP) major
 
+commit-bamp:
+	$(info Committing changes...)
+	@$(GIT) add bamp.cfg ppieces/__init__.py pyproject.toml
+	@$(GIT) commit -m "Bamp version to $(shell $(BAMP) current)"
 
 # Aliases
 test-pypi: patch test-pypi-release
