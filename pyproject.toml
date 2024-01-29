@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 # pipx is not compatible with hatchling, until it is, we will use setuptools
 # requires = ["hatchling"]
@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ppieces"
-version = "0.2.3"
+version = "0.2.4"
 description = "A command-line utility to streamline the setup of new Python projects."
 authors = [{name = "Patilla Code", email = "patillacode@gmail.com"}]
 license = {text = "MIT"}

@@ -22,6 +22,10 @@ I wanted a way to automate the setup for new projects, so I created `ppieces`.
 
 #### Plug & Play:
 ```bash
+# Install via pipx, recommended since you will most likely want to use this tool globally.
+pipx install ppieces
+
+# Install via pip, if you prefer to use a virtual environment.
 pip install ppieces
 ```
 
