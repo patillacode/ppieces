@@ -67,10 +67,5 @@ commit-bamp:
 
 # Aliases
 patch-release: patch commit-bamp tag push pypi-release
-patch-test-release: patch commit-bamp test-pypi-release
-
 minor-release: minor commit-bamp tag push pypi-release
-minor-test-release: minor commit-bamp test-pypi-release
-
 major-release: major commit-bamp tag push pypi-release
-major-test-release: major commit-bamp test-pypi-release
