@@ -3,15 +3,10 @@ import os
 from termcolor import colored
 
 from ppieces.utils.commands import (
-    check_precommit,
     create_project_directory,
-    create_virtual_environment,
     delete_path,
-    initialize_git_repository,
-    install_precommit_hooks,
-    setup_autoenv,
 )
-from ppieces.utils.copy import copy_main_file, copy_precommit_config, copy_ruff_config
+from ppieces.utils.flows import finalize_project, get_project_path, setup_project
 from ppieces.utils.prompts import ask_user, bye, welcome
 
 
@@ -20,92 +15,43 @@ def run_cli(
     project_folder,
     project_name,
     virtual_env,
+    git,
     pre_commit,
     ruff,
     autoenv,
-    git,
+    username,
 ):
     project_path = None
     try:
         if non_interactive:
             project_path = os.path.join(project_folder, project_name)
-            create_project_directory(project_path)
+            create_project_directory(project_path, interactive=False)
 
-            if git:
-                initialize_git_repository(project_path)
-
-            if virtual_env:
-                create_virtual_environment(project_path)
-
-            if autoenv:
-                setup_autoenv(project_path)
-
-            if ruff:
-                copy_ruff_config(project_path)
-
-            if pre_commit:
-                copy_precommit_config(project_path)
-                if check_precommit(git):
-                    install_precommit_hooks(project_path)
-
-            copy_main_file(project_path)
+            options = {
+                "virtual_env": virtual_env,
+                "git": git,
+                "autoenv": autoenv,
+                "ruff": ruff,
+                "pre_commit": pre_commit,
+            }
 
         else:
             welcome()
+            project_path = get_project_path()
+            create_project_directory(project_path, interactive=True)
 
-            precommit_ok = False
+            options = {
+                "virtual_env": ask_user("Do you want to create a virtual environment?"),
+                "git": ask_user("Do you want to initialize a git repository?"),
+                "autoenv": ask_user("Do you want to set up autoenv?"),
+                "ruff": ask_user("Do you want to add a config file for ruff?"),
+                "pre_commit": ask_user("Do you want to add a pre-commit config file?"),
+            }
+            git = options["git"]
 
-            default_projects_folder_path = os.path.join(os.getenv("HOME"), "projects")
-            projects_folder_path = input(
-                colored(
-                    "Enter the absolute path of your projects folder (default: "
-                    f"{default_projects_folder_path}): ",
-                    "cyan",
-                    attrs=["bold"],
-                )
-            )
-
-            if not projects_folder_path:
-                projects_folder_path = default_projects_folder_path
-
-            project_name = input(
-                colored("Enter the name of your new project: ", "cyan", attrs=["bold"])
-            )
-            project_path = os.path.join(projects_folder_path, project_name)
-
-            create_project_directory(project_path)
-
-            if git := ask_user("Do you want to initialize a git repository?"):
-                initialize_git_repository(project_path)
-
-            if ask_user("Do you want to create a virtual environment?"):
-                create_virtual_environment(project_path)
-
-            if ask_user("Do you want to set up autoenv?"):
-                setup_autoenv(project_path)
-
-            if ask_user("Do you want to add a config file for ruff?"):
-                copy_ruff_config(project_path)
-
-            if ask_user("Do you want to add a config file for pre-commit?"):
-                copy_precommit_config(project_path)
-                if precommit_ok := check_precommit(git):
-                    install_precommit_hooks(project_path)
-
-            copy_main_file(project_path)
-
-            if not precommit_ok:
-                msg = colored(
-                    (
-                        "\n\nWARNING: pre-commit is not installed. "
-                        "Please install it manually."
-                    ),
-                    "red",
-                    attrs=["bold"],
-                )
-                print(msg)
-
-            bye()
+        setup_project(project_path, options, username)
+        finalize_project(project_path, git)
+        bye()
 
     except KeyboardInterrupt:
         print(colored("\nAborting...", "red", attrs=["bold"]))

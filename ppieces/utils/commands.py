@@ -1,6 +1,7 @@
 import os
 import shutil
 import subprocess
+import sys
 
 import click
 
@@ -8,7 +9,11 @@ from rich.console import Console
 from termcolor import colored
 
 from ppieces.utils.constants import SCRIPTS_DIR
-from ppieces.utils.copy import copy_file
+from ppieces.utils.copy import (
+    copy_gitignore_file,
+    copy_readme_file,
+    copy_requirements_file,
+)
 from ppieces.utils.prompts import ask_user
 
 console = Console()
@@ -17,7 +22,10 @@ console = Console()
 def check_precommit(git):
     if not git:
         msg = colored(
-            ("Cannot install pre-commit without git. Ignoring..."),
+            (
+                "Cannot install pre-commit without git. "
+                "Config file copied but not installing hooks..."
+            ),
             "red",
             attrs=["bold"],
         )
@@ -67,7 +75,7 @@ def install_precommit_hooks(project_path):
         os.chdir(current_dir)
 
     msg = colored(
-        ("Pre-commit hooks installed successfully."),
+        ("Installed pre-commit hooks successfully!"),
         "yellow",
         attrs=["bold"],
     )
@@ -79,10 +87,16 @@ def setup_autoenv(project_path):
         [os.path.join(f"{SCRIPTS_DIR}", "setup_autoenv.sh"), project_path],
         check=True,
     )
+    msg = colored(
+        ("autoenv configured successfully!"),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
 
 
 def add_and_install_requirements(project_path):
-    copy_file("requirements.txt", project_path)
+    copy_requirements_file(project_path)
 
     with console.status("[green]Installing default requirements..."):
         subprocess.run(
@@ -98,7 +112,7 @@ def add_and_install_requirements(project_path):
             stderr=subprocess.DEVNULL,
         )
     msg = colored(
-        ("Requirements installed successfully."),
+        ("Installed default requirements successfully!"),
         "yellow",
         attrs=["bold"],
     )
@@ -127,12 +141,50 @@ def create_virtual_environment(project_path):
     add_and_install_requirements(project_path)
 
 
-def initialize_git_repository(project_path):
-    subprocess.run(["git", "init", project_path], check=True)
-    copy_file(".gitignore", project_path)
+def initialize_git_repository(project_path, username):
+    copy_gitignore_file(project_path)
+    copy_readme_file(project_path, username)
+    with console.status("[green]Initializing git repo..."):
+        subprocess.run(
+            ["git", "init", project_path],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+
+    msg = colored(
+        ("Initialized git repo successfully!"),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
 
 
-def create_project_directory(project_path):
+def initial_commit(project_path):
+    with console.status("[green]Creating initial commit..."):
+        subprocess.run(
+            ["git", "add", "."],
+            cwd=project_path,
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        subprocess.run(
+            ["git", "commit", "-m", "initial commit"],
+            cwd=project_path,
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    msg = colored(
+        ("Created initial commit successfully!"),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
+
+
+def create_project_directory(project_path, interactive=False):
     try:
         os.makedirs(project_path)
         msg = colored(
@@ -161,10 +213,10 @@ def create_project_directory(project_path):
         )
         print(msg)
 
-        if delete_path(project_path):
+        if interactive and delete_path(project_path):
             return create_project_directory(project_path)
 
-        raise click.Abort()
+        sys.exit(1)
 
 
 def delete_path(project_path):

@@ -1,5 +1,8 @@
+import os
+
 import click
 
+from ppieces import __version__
 from ppieces.utils.cli import run_cli
 
 
@@ -32,6 +35,12 @@ from ppieces.utils.cli import run_cli
     help="Create a virtual environment.",
 )
 @click.option(
+    "-g",
+    "--git",
+    is_flag=True,
+    help="Initialize a git repository (with .gitignore and README files)",
+)
+@click.option(
     "-pre",
     "--pre-commit",
     is_flag=True,
@@ -50,10 +59,12 @@ from ppieces.utils.cli import run_cli
     help="Set up autoenv.",
 )
 @click.option(
-    "-g",
-    "--git",
-    is_flag=True,
-    help="Initialize a git repository.",
+    "-u",
+    "--username",
+    type=str,
+    required=False,
+    default=os.getenv("USER"),
+    help="GitHub username to use in README (default: $USER)",
 )
 @click.option(
     "--version",
@@ -61,19 +72,18 @@ from ppieces.utils.cli import run_cli
     help="Show the version of ppieces.",
 )
 def main(
+    non_interactive,
     project_folder,
     project_name,
     virtual_env,
+    git,
     pre_commit,
     ruff,
     autoenv,
-    non_interactive,
-    git,
+    username,
     version,
 ):
     if version:
-        from . import __version__
-
         click.echo(__version__)
         return
 
@@ -88,10 +98,11 @@ def main(
         project_folder,
         project_name,
         virtual_env,
+        git,
         pre_commit,
         ruff,
         autoenv,
-        git,
+        username,
     )
 
 
