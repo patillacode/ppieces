@@ -40,11 +40,16 @@ def copy_gitignore_file(project_path):
 
 
 def copy_readme_file(project_path, username):
-    copy_template_file("README.md", project_path)
+    copy_template_file("README-sample.md", project_path)
     project_name = os.path.basename(project_path)
-    with open(os.path.join(project_path, "README.md"), "r") as f:
+    with open(os.path.join(project_path, "README-sample.md"), "r") as f:
         readme = f.read()
         readme = readme.replace("{{project_name}}", project_name)
         readme = readme.replace("{{username}}", username)
-    with open(os.path.join(project_path, "README.md"), "w") as f:
+    with open(os.path.join(project_path, "README-sample.md"), "w") as f:
         f.write(readme)
+    # change file name from README-sample.md to README.md
+    os.rename(
+        os.path.join(project_path, "README-sample.md"),
+        os.path.join(project_path, "README.md"),
+    )
