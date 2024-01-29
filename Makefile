@@ -36,30 +36,20 @@ pypi-release:
 	@$(HATCH) publish
 
 # Bamping
-bamp-patch:
+patch:
 	$(info Setting version (patch)...)
 	@$(BAMP) patch
-	$(info Adding changes to git...)
-	@$(GIT) add --all
-	$(info Committing changes...)
-	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current)"
 
-bamp-minor:
+minor:
 	$(info Setting version (minor)...)
 	@$(BAMP) minor
-	$(info Adding changes to git...)
-	@$(GIT) add --all
-	$(info Committing changes...)
-	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current)"
 
-bamp-major:
+
+major:
 	$(info Setting version (major)...)
 	@$(BAMP) major
-	$(info Adding changes to git...)
-	@$(GIT) add --all
-	$(info Committing changes...)
-	@$(GIT) commit -m "Bump version: $(shell $(BAMP) current)"
+
 
 # Aliases
-test-pypi: bamp-patch test-pypi-release
-pypi: bamp-patch pypi-release
+test-pypi: patch test-pypi-release
+pypi: patch pypi-release
