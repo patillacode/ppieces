@@ -8,7 +8,6 @@ setup_autoenv() {
     echo -n "if type deactivate >/dev/null 2>&1; then\n  deactivate\nfi" >> $project_path/.autoenv_leave.sh
     echo ".autoenv.sh" >> $project_path/.gitignore
     echo ".autoenv_leave.sh" >> $project_path/.gitignore
-    echo "󰚩  autoenv configured 󰚩"
 }
 
 # get the first argument passed to the script as the project_path and call setup_autoenv
