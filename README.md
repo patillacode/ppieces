@@ -72,7 +72,7 @@ Interactive mode will ask you a series of questions to configure your new projec
 $ ppieces
 ```
 
-https://github.com/patillacode/ppieces/assets/10074977/4ba02798-3fda-4c35-87c4-8e782f83819a
+https://github.com/patillacode/ppieces/assets/10074977/0a4b4dda-4809-4248-8215-7d4fb0765546
 
 
 For scripting, use the following options:
@@ -86,17 +86,20 @@ Options:
   -p, --project-folder PATH  The path to your projects folder.
   -n, --project-name TEXT    The name of the new project.
   -v, --virtual-env          Create a virtual environment.
+  -g, --git                  Initialize a git repository (with .gitignore and
+                             README files)
+
   -pre, --pre-commit         Add pre-commit configuration.
   -r, --ruff                 Add a ruff configuration file.
   -a, --autoenv              Set up autoenv.
-  -g, --git                  Initialize a git repository.
+  -u, --username TEXT        GitHub username to use in README (default: $USER)
   --version                  Show the version of ppieces.
   --help                     Show this message and exit.
 ```
 
 Example usage:
 ```bash
-ppieces -ni -p /home/user/projects -n test -v -pre -r -a -g
+ppieces -ni -p /Users/dvitto/projects -n test -v -pre -r -a -g -u patillacode
 ```
 
 
