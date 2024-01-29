@@ -46,3 +46,5 @@ def copy_readme_file(project_path, username):
         readme = f.read()
         readme = readme.replace("{{project_name}}", project_name)
         readme = readme.replace("{{username}}", username)
+    with open(os.path.join(project_path, "README.md"), "w") as f:
+        f.write(readme)
