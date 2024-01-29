@@ -87,6 +87,7 @@ Options:
   -r, --ruff                 Add a ruff configuration file.
   -a, --autoenv              Set up autoenv.
   -g, --git                  Initialize a git repository.
+  --version                  Show the version of ppieces.
   --help                     Show this message and exit.
 ```
 
@@ -109,9 +110,17 @@ ppieces -ni -p /home/user/projects -n test -v -pre -r -a -g
 
 ### Acknowledgments
 
-This project makes use of several open-source packages such as `pyfiglet`, `termcolor`, `python-dotenv`, `autoenv` and `pre-commit`.
+This project makes use of several open-source packages including, but not limited to:
+- [`autoenv`](https://github.com/hyperupcall/autoenv?tab=readme-ov-file)
+- [`bamp`](https://github.com/inirudebwoy/bamp)
+- [`hatch`](https://hatch.pypa.io/latest/)
+- [`icecream`](https://github.com/gruns/icecream)
+- [`pre-commit`](https://pre-commit.com/)
+- [`pyfiglet`](https://github.com/pwaller/pyfiglet)
+- [`rich`](https://github.com/Textualize/rich)
+- [`termcolor`](https://github.com/termcolor/termcolor)
 
-A big thank you to the maintainers of all these projects.
+A big thank you to the maintainers of all these projects and the python and open-source communities in general.
 
 
 ### Contributing
