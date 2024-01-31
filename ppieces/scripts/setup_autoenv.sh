@@ -2,6 +2,16 @@
 
 setup_autoenv() {
     project_path=$1
+
+    # check if the project_path is given and is an existing directory
+    if [[ -z $project_path ]]; then
+        echo "Please provide a project path"
+        exit 1
+    elif [[ ! -d $project_path ]]; then
+        echo "The project path provided is not a directory"
+        exit 1
+    fi
+
     echo "echo \"󰚩  loading venv automatically 󰚩\"" > $project_path/.autoenv.sh
     echo -n "source ${project_path}/venv/bin/activate" >> $project_path/.autoenv.sh
     echo "echo \"󰚩  deactivating venv automatically 󰚩\"" > $project_path/.autoenv_leave.sh
