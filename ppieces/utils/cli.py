@@ -69,7 +69,7 @@ def run_cli(
             git = options["git"]
 
         setup_project(project_path, options, username)
-        finalize_project(project_path, git)
+        finalize_project(project_path, git, pre_commit)
         bye()
 
     except KeyboardInterrupt:
