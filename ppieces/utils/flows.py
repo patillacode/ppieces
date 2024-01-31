@@ -67,20 +67,24 @@ def setup_project(
                 options_mapping[option](project_path)
 
 
-def finalize_project(project_path, git):
-    # once we know a git repo was initialized, we can install pre-commit hooks
-    if check_precommit(git):
-        install_precommit_hooks(project_path)
+def finalize_project(project_path, git, pre_commit):
+    if pre_commit:
+        # once we know a git repo was initialized, we can install pre-commit hooks
+        if check_precommit(git):
+            install_precommit_hooks(project_path)
 
-    # otherwise, we inform the user that we can't install pre-commit hooks
-    # without a git repo
-    else:
-        msg = colored(
-            ("\n\nWARNING: pre-commit is not installed. " "Please install it manually."),
-            "red",
-            attrs=["bold"],
-        )
-        print(msg)
+        # otherwise, we inform the user that we can't install pre-commit hooks
+        # without a git repo
+        else:
+            msg = colored(
+                (
+                    "\n\nWARNING: pre-commit is not installed. "
+                    "Please install it manually."
+                ),
+                "red",
+                attrs=["bold"],
+            )
+            print(msg)
 
     # this should be the last step since we are making the initial commit
     # AFTER all the template files are copied to the new project folder
