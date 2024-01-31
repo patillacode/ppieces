@@ -1,6 +1,9 @@
 import os
+import sys
 
 import click
+
+from termcolor import colored
 
 from ppieces import __version__
 from ppieces.utils.cli import run_cli
@@ -59,6 +62,12 @@ from ppieces.utils.cli import run_cli
     help="Set up autoenv.",
 )
 @click.option(
+    "-m",
+    "--makefile",
+    is_flag=True,
+    help="Add a default Makefile.",
+)
+@click.option(
     "-u",
     "--username",
     type=str,
@@ -80,18 +89,24 @@ def main(
     pre_commit,
     ruff,
     autoenv,
+    makefile,
     username,
     version,
 ):
     if version:
         click.echo(__version__)
-        return
+        sys.exit(1)
 
-    if non_interactive and not project_name and not project_folder:
-        raise click.UsageError(
-            "The project name and project folder must be provided when running in "
-            "non-interactive mode."
+    if non_interactive and (not project_name or not project_folder):
+        msg = colored(
+            "\nBoth project name and project folder must be provided when running in "
+            "non-interactive mode.\n",
+            "red",
+            attrs=["bold"],
         )
+        print(msg)
+        click.echo(main.get_help(click.Context(main)))
+        sys.exit(2)
 
     run_cli(
         non_interactive,
@@ -102,6 +117,7 @@ def main(
         pre_commit,
         ruff,
         autoenv,
+        makefile,
         username,
     )
 

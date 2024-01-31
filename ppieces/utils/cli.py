@@ -19,6 +19,7 @@ def run_cli(
     pre_commit,
     ruff,
     autoenv,
+    makefile,
     username,
 ):
     project_path = None
@@ -33,19 +34,37 @@ def run_cli(
                 "autoenv": autoenv,
                 "ruff": ruff,
                 "pre_commit": pre_commit,
+                "makefile": makefile,
             }
 
         else:
             welcome()
             project_path = get_project_path()
+            project_name = os.path.basename(project_path)
             create_project_directory(project_path, interactive=True)
 
             options = {
-                "virtual_env": ask_user("Do you want to create a virtual environment?"),
-                "git": ask_user("Do you want to initialize a git repository?"),
-                "autoenv": ask_user("Do you want to set up autoenv?"),
-                "ruff": ask_user("Do you want to add a config file for ruff?"),
-                "pre_commit": ask_user("Do you want to add a pre-commit config file?"),
+                "virtual_env": ask_user(
+                    f"Do you want to create a virtual environment for `{project_name}` "
+                    "project?"
+                ),
+                "git": ask_user(
+                    f"Do you want to initialize a git repository for `{project_name}` "
+                    "project?"
+                ),
+                "autoenv": ask_user(
+                    f"Do you want to autoenv config files for `{project_name}` project?"
+                ),
+                "ruff": ask_user(
+                    f"Do you want to add a ruff config file for `{project_name}` project?"
+                ),
+                "pre_commit": ask_user(
+                    f"Do you want to add a pre-commit config file for `{project_name}` "
+                    "project?"
+                ),
+                "makefile": ask_user(
+                    f"Do you want to add a Makefile for `{project_name}` project?"
+                ),
             }
             git = options["git"]
 
