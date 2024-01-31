@@ -1,4 +1,8 @@
-## ppieces
+| Latest Version | Downloads |
+|----------------|-----------|
+[![PyPI version](https://badge.fury.io/py/ppieces.svg)](https://badge.fury.io/py/ppieces)|[![Downloads](https://pepy.tech/badge/ppieces)](https://pepy.tech/project/ppieces)
+
+# ppieces
 
 
 ### What?
