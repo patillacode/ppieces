@@ -38,14 +38,25 @@ def run_cli(
         else:
             welcome()
             project_path = get_project_path()
+            project_name = os.path.basename(project_path)
             create_project_directory(project_path, interactive=True)
 
             options = {
-                "virtual_env": ask_user("Do you want to create a virtual environment?"),
-                "git": ask_user("Do you want to initialize a git repository?"),
-                "autoenv": ask_user("Do you want to set up autoenv?"),
-                "ruff": ask_user("Do you want to add a config file for ruff?"),
-                "pre_commit": ask_user("Do you want to add a pre-commit config file?"),
+                "virtual_env": ask_user(
+                    f"Do you want to create a virtual environment for {project_name}?"
+                ),
+                "git": ask_user(
+                    f"Do you want to initialize a git repository for {project_name}?"
+                ),
+                "autoenv": ask_user(
+                    f"Do you want to autoenv config files for {project_name}?"
+                ),
+                "ruff": ask_user(
+                    f"Do you want to add a ruff config file for {project_name}?"
+                ),
+                "pre_commit": ask_user(
+                    f"Do you want to add a pre-commit config file for {project_name}?"
+                ),
             }
             git = options["git"]
 
