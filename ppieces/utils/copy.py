@@ -23,6 +23,10 @@ def copy_requirements_file(project_path):
     copy_template_file("requirements.txt", project_path)
 
 
+def copy_makefile(project_path):
+    copy_template_file("Makefile", project_path)
+
+
 def copy_main_file(project_path):
     copy_template_file("main.py", project_path)
 

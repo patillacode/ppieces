@@ -12,6 +12,7 @@ from ppieces.utils.commands import (
 )
 from ppieces.utils.copy import (
     copy_main_file,
+    copy_makefile,
     copy_precommit_config,
     copy_ruff_config,
 )
@@ -28,10 +29,11 @@ def get_project_path():
             attrs=["bold"],
         )
     )
-    validate_projects_folder_path(projects_folder_path)
 
     if not projects_folder_path:
         projects_folder_path = default_projects_folder_path
+
+    validate_projects_folder_path(projects_folder_path)
 
     project_name = input(
         colored("Enter the name of your new project: ", "cyan", attrs=["bold"])
@@ -52,6 +54,7 @@ def setup_project(
         "autoenv": setup_autoenv,
         "ruff": copy_ruff_config,
         "pre_commit": copy_precommit_config,
+        "makefile": copy_makefile,
     }
 
     copy_main_file(project_path)
