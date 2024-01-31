@@ -212,15 +212,14 @@ def create_project_directory(project_path, interactive=False):
             attrs=["bold"],
         )
         print(msg)
-
-        if interactive and delete_path(project_path):
-            return create_project_directory(project_path)
-
         sys.exit(1)
 
 
 def delete_path(project_path):
-    if ask_user(f"\nDo you want to delete the {project_path} folder?"):
+    if ask_user(
+        f"\nDo you want to delete the {project_path} folder to undo any changes done "
+        "until now?"
+    ):
         shutil.rmtree(project_path)
         click.echo(
             colored(
