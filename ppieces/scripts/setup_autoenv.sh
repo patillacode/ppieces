@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 setup_autoenv() {
     project_path=$1
