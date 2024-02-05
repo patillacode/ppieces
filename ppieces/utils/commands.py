@@ -11,55 +11,13 @@ from termcolor import colored
 from ppieces.utils.constants import SCRIPTS_DIR
 from ppieces.utils.copy import (
     copy_gitignore_file,
+    copy_pip_tools_requirements_files,
     copy_readme_file,
     copy_requirements_file,
 )
 from ppieces.utils.prompts import ask_user
 
 console = Console()
-
-
-def check_precommit(git):
-    if not git:
-        msg = colored(
-            (
-                "Cannot install pre-commit without git. "
-                "Config file copied but not installing hooks..."
-            ),
-            "red",
-            attrs=["bold"],
-        )
-        print(msg)
-        return False
-
-    try:
-        with console.status("[green]Checking if pre-commit is installed..."):
-            subprocess.run(
-                ["pre-commit", "--version"],
-                check=True,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-    except Exception:
-        msg = colored(
-            (
-                "pre-commit is not installed. Please make sure to install it\n"
-                "pipx install pre-commit or brew install pre-commit"
-            ),
-            "red",
-            attrs=["bold"],
-        )
-        print(msg)
-
-        msg = colored(
-            ("Continuing without pre-commit. You can install it later.\n"),
-            "blue",
-            attrs=["bold"],
-        )
-        print(msg)
-        return False
-
-    return True
 
 
 def install_precommit_hooks(project_path):
@@ -76,7 +34,7 @@ def install_precommit_hooks(project_path):
 
     msg = colored(
         ("Installed pre-commit hooks successfully!"),
-        "yellow",
+        "cyan",
         attrs=["bold"],
     )
     print(msg)
@@ -88,45 +46,88 @@ def setup_autoenv(project_path):
         check=True,
     )
     msg = colored(
-        ("autoenv configured successfully!"),
-        "yellow",
+        ("Configured autoenv successfully!"),
+        "cyan",
         attrs=["bold"],
     )
     print(msg)
 
 
-def add_and_install_requirements(project_path):
-    copy_requirements_file(project_path)
-
-    with console.status("[green]Installing default requirements..."):
+def pip_install_requirements(project_path):
+    with console.status("[green]Installing requirements..."):
         subprocess.run(
             [
                 f"{project_path}/venv/bin/pip",
                 "install",
                 "-r",
                 os.path.join(project_path, "requirements.txt"),
-                "--upgrade",
             ],
             check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
     msg = colored(
-        ("Installed default requirements successfully!"),
-        "yellow",
+        ("Installed requirements successfully!"),
+        "cyan",
         attrs=["bold"],
     )
     print(msg)
 
 
-def create_virtual_environment(project_path):
+def add_and_install_requirements(project_path, pip_tools):
+    if pip_tools:
+        copy_pip_tools_requirements_files(project_path)
+        with console.status("[green]Installing pip-tools..."):
+            subprocess.run(
+                [
+                    f"{project_path}/venv/bin/pip",
+                    "install",
+                    "pip-tools",
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        msg = colored(
+            ("Installed pip-tools successfully!"),
+            "cyan",
+            attrs=["bold"],
+        )
+        print(msg)
+
+        with console.status("[green]Generating development requirements file..."):
+            subprocess.run(
+                [
+                    f"{project_path}/venv/bin/pip-compile",
+                    os.path.join(project_path, "requirements", "development.in"),
+                    "--output-file",
+                    os.path.join(project_path, "requirements.txt"),
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        msg = colored(
+            ("Generated requirement files successfully!"),
+            "cyan",
+            attrs=["bold"],
+        )
+        print(msg)
+        pip_install_requirements(project_path)
+
+    else:
+        copy_requirements_file(project_path)
+        pip_install_requirements(project_path)
+
+
+def create_virtual_environment(project_path, pip_tools):
     with console.status("[green]Creating virtual environment..."):
         subprocess.run(
             ["python", "-m", "venv", os.path.join(project_path, "venv")], check=True
         )
     msg = colored(
         (f"Created a virtual environment in {project_path}/venv"),
-        "yellow",
+        "cyan",
         attrs=["bold"],
     )
     print(msg)
@@ -138,7 +139,8 @@ def create_virtual_environment(project_path):
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
-    add_and_install_requirements(project_path)
+
+    add_and_install_requirements(project_path, pip_tools)
 
 
 def initialize_git_repository(project_path, username):
@@ -154,7 +156,7 @@ def initialize_git_repository(project_path, username):
 
     msg = colored(
         ("Initialized git repo successfully!"),
-        "yellow",
+        "cyan",
         attrs=["bold"],
     )
     print(msg)
@@ -178,7 +180,7 @@ def initial_commit(project_path):
         )
     msg = colored(
         ("Created initial commit successfully!"),
-        "yellow",
+        "cyan",
         attrs=["bold"],
     )
     print(msg)
@@ -206,7 +208,7 @@ def create_project_directory(project_path, interactive=False):
         msg = colored(
             (
                 f"Delete the directory '{project_path}' and try again or give "
-                "a different project name."
+                "a different project name.\n"
             ),
             "blue",
             attrs=["bold"],
