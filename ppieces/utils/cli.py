@@ -27,7 +27,7 @@ def run_cli(
     try:
         if non_interactive:
             project_path = os.path.join(project_folder, project_name)
-            create_project_directory(project_path, interactive=False)
+            create_project_directory(project_path)
 
             options = {
                 "virtual_env": virtual_env,
@@ -43,7 +43,7 @@ def run_cli(
             welcome()
             project_path = get_project_path()
             project_name = os.path.basename(project_path)
-            create_project_directory(project_path, interactive=True)
+            create_project_directory(project_path)
 
             options = {
                 "virtual_env": ask_user(

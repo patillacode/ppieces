@@ -186,7 +186,7 @@ def initial_commit(project_path):
     print(msg)
 
 
-def create_project_directory(project_path, interactive=False):
+def create_project_directory(project_path):
     try:
         os.makedirs(project_path)
         msg = colored(
