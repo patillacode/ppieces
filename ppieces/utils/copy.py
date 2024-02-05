@@ -1,3 +1,4 @@
+import glob
 import os
 import shutil
 
@@ -23,8 +24,39 @@ def copy_requirements_file(project_path):
     copy_template_file("requirements.txt", project_path)
 
 
-def copy_makefile(project_path):
+def copy_makefile(project_path, pip_tools):
     copy_template_file("Makefile", project_path)
+
+    if pip_tools:
+        pip_tools_makefile_path = os.path.join(TEMPLATES_DIR, "pip-tools/Makefile")
+        with open(pip_tools_makefile_path, "r") as f:
+            pip_tools_makefile = f.read()
+        with open(os.path.join(project_path, "Makefile"), "a") as f:
+            f.write(pip_tools_makefile)
+
+    msg = colored(
+        (f"Extended Makefile with pip-tools commands in {project_path}"),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
+
+
+def copy_pip_tools_requirements_files(project_path):
+    pip_tools_templates_folder_path = os.path.join(TEMPLATES_DIR, "pip-tools")
+    requirements_folder_path = os.path.join(project_path, "requirements")
+    os.makedirs(requirements_folder_path, exist_ok=False)
+
+    pattern = f"{pip_tools_templates_folder_path}/requirements/*.in"
+    for requirement_file in glob.glob(pattern):
+        shutil.copy(requirement_file, requirements_folder_path)
+
+    msg = colored(
+        (f"Created a requirements folder for pip-tools in {project_path}"),
+        "yellow",
+        attrs=["bold"],
+    )
+    print(msg)
 
 
 def copy_main_file(project_path):

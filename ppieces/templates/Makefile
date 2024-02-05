@@ -1,6 +1,7 @@
 PYTHON_GLOBAL = python
-PYTHON = venv/bin/python
-PIP = venv/bin/pip
+VENV = venv/bin/
+PYTHON = $(VENV)python
+PIP = $(VENV)pip
 GIT = git
 
 .PHONY: install run

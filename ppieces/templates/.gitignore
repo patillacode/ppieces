@@ -1,9 +1,10 @@
 __pycache__/
 *.py[cod]
 *.class
-.vscode
 .aider*
 .idea
+.ruff_cache
+.vscode
 *.pyo
 *.pyd
 *.pyc
