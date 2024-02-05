@@ -20,6 +20,7 @@ def run_cli(
     ruff,
     autoenv,
     makefile,
+    pip_tools,
     username,
 ):
     project_path = None
@@ -34,6 +35,7 @@ def run_cli(
                 "autoenv": autoenv,
                 "ruff": ruff,
                 "pre_commit": pre_commit,
+                "pip_tools": pip_tools,
                 "makefile": makefile,
             }
 
@@ -61,6 +63,10 @@ def run_cli(
                 "pre_commit": ask_user(
                     f"Do you want to add a pre-commit config file for `{project_name}` "
                     "project?"
+                ),
+                "pip_tools": ask_user(
+                    "Do you want to add pip-tools as your dependency manager for "
+                    f"`{project_name}` project?"
                 ),
                 "makefile": ask_user(
                     f"Do you want to add a Makefile for `{project_name}` project?"

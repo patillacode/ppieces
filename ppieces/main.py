@@ -7,6 +7,7 @@ from termcolor import colored
 
 from ppieces import __version__
 from ppieces.utils.cli import run_cli
+from ppieces.utils.validation import validate_options
 
 
 @click.command()
@@ -18,7 +19,7 @@ from ppieces.utils.cli import run_cli
     help="Run the script in non-interactive mode.",
 )
 @click.option(
-    "-p",
+    "-f",
     "--project-folder",
     type=click.Path(exists=True),
     required=False,
@@ -44,7 +45,7 @@ from ppieces.utils.cli import run_cli
     help="Initialize a git repository (with .gitignore and README files)",
 )
 @click.option(
-    "-pre",
+    "-c",
     "--pre-commit",
     is_flag=True,
     help="Add pre-commit configuration.",
@@ -66,6 +67,12 @@ from ppieces.utils.cli import run_cli
     "--makefile",
     is_flag=True,
     help="Add a default Makefile.",
+)
+@click.option(
+    "-p",
+    "--pip-tools",
+    is_flag=True,
+    help="Add a default pip-tools setups.",
 )
 @click.option(
     "-u",
@@ -90,6 +97,7 @@ def main(
     ruff,
     autoenv,
     makefile,
+    pip_tools,
     username,
     version,
 ):
@@ -97,15 +105,26 @@ def main(
         click.echo(__version__)
         sys.exit(1)
 
-    if non_interactive and (not project_name or not project_folder):
-        msg = colored(
-            "\nBoth project name and project folder must be provided when running in "
-            "non-interactive mode.\n",
-            "red",
-            attrs=["bold"],
+    if not validate_options(
+        non_interactive,
+        project_folder,
+        project_name,
+        virtual_env,
+        git,
+        pre_commit,
+        ruff,
+        autoenv,
+        makefile,
+        pip_tools,
+        username,
+    ):
+        click.echo(
+            colored(
+                "\nTry 'ppieces --help' for help.\n",
+                "cyan",
+                attrs=["bold"],
+            )
         )
-        print(msg)
-        click.echo(main.get_help(click.Context(main)))
         sys.exit(2)
 
     run_cli(
@@ -118,6 +137,7 @@ def main(
         ruff,
         autoenv,
         makefile,
+        pip_tools,
         username,
     )
 

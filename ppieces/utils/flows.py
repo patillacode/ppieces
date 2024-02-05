@@ -3,7 +3,6 @@ import os
 from termcolor import colored
 
 from ppieces.utils.commands import (
-    check_precommit,
     create_virtual_environment,
     initial_commit,
     initialize_git_repository,
@@ -59,32 +58,24 @@ def setup_project(
 
     copy_main_file(project_path)
 
+    # we need to pop the pip_tools option from the options dict
+    # because it's not a function that we can call directly
+    # pip_tools is a flag that we need to pass for the virtual_env and makefile options
+    pip_tools = options.pop("pip_tools")
+
     for option, value in options.items():
         if value:
             if option == "git":
                 options_mapping[option](project_path, username)
+            elif option == "virtual_env" or option == "makefile":
+                options_mapping[option](project_path, pip_tools)
             else:
                 options_mapping[option](project_path)
 
 
 def finalize_project(project_path, git, pre_commit):
     if pre_commit:
-        # once we know a git repo was initialized, we can install pre-commit hooks
-        if check_precommit(git):
-            install_precommit_hooks(project_path)
-
-        # otherwise, we inform the user that we can't install pre-commit hooks
-        # without a git repo
-        else:
-            msg = colored(
-                (
-                    "\n\nWARNING: pre-commit is not installed. "
-                    "Please install it manually."
-                ),
-                "red",
-                attrs=["bold"],
-            )
-            print(msg)
+        install_precommit_hooks(project_path)
 
     # this should be the last step since we are making the initial commit
     # AFTER all the template files are copied to the new project folder
