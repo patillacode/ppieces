@@ -35,8 +35,8 @@ version:
 	@$(BAMP) current
 
 # utils aliases
-install: create-venv upgrade-pip install-package
-
+install: create-venv upgrade-pip dev-requirements install-package
+re-install: upgrade-pip dev-requirements install-package
 
 # requirements
 build-dev-requirements:
