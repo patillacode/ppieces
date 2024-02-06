@@ -17,7 +17,7 @@ upgrade-pip:
 
 install-requirements:
 	$(info Installing requirements...)
-	@$(PIP) install -r requirements.txt
+	@$(PIP) install -r requirements/development.txt
 
 run:
 	@$(PYTHON) main.py
