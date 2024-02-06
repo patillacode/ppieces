@@ -16,15 +16,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dependencies = [
-    "bamp==1.2.0",
-    "build==1.0.3",
-    "click==7.1.2",
-    "icecream==2.1.3",
-    "pyfiglet==0.8.post1",
-    "rich==13.4.1",
-    "termcolor==2.2.0",
-]
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements/production.txt"] }
+optional-dependencies.test = { file = ["requirements/development.txt", "requirements/test.txt"] }
 
 [project.urls]
 homepage = "https://github.com/patillacode/ppieces"

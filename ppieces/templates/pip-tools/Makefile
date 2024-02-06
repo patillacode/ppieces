@@ -1,23 +1,36 @@
 
-build-requirements:
-	$(info Building requirements...)
-	@$(VENV)pip-compile requirements/base.in -o requirements/base.txt
+install-requirements:
+	$(info Installing requirements...)
+	@$(PIP) install -r requirements/development.txt
+
+# requirements
+build-dev-requirements:
+	$(info Building development requirements...)
 	@$(VENV)pip-compile requirements/development.in -o requirements/development.txt
-	@$(VENV)pip-compile requirements/production.in -o requirements/production.txt
+
+build-production-requirements:
+	$(info Building production requirements...)
+	@$(VENV)pip-compile requirements/base.in -o requirements/production.txt
+
+build-test-requirements:
+	$(info Building test requirements...)
 	@$(VENV)pip-compile requirements/test.in -o requirements/test.txt
 
-sync-base-requirements:
-	$(info Syncing base requirements...)
-	@$(VENV)pip-sync requirements/base.txt
+install-development-requirements:
+	$(info Installing development requirements...)
+	@$(PIP) install -r requirements/development.txt
 
-sync-dev-requirements:
-	$(info Syncing dev requirements...)
-	@$(VENV)pip-sync requirements/development.txt
+install-production-requirements:
+	$(info Installing production requirements...)
+	@$(PIP) install -r requirements/development.txt
 
-sync-prod-requirements:
-	$(info Syncing prod requirements...)
-	@$(VENV)pip-sync requirements/production.txt
+install-test-requirements:
+	$(info Installing test requirements...)
+	@$(PIP) install -r requirements/test.txt
 
-sync-test-requirements:
-	$(info Syncing test requirements...)
-	@$(VENV)pip-sync requirements/test.txt
+# requirements aliases
+build-requirements: build-dev-requirements build-production-requirements build-test-requirements
+dev-requirements: build-dev-requirements install-development-requirements install-package
+prod-requirements: build-production-requirements install-production-requirements install-package
+test-requirements: build-test-requirements install-test-requirements install-package
+

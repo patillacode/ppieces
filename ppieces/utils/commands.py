@@ -53,14 +53,14 @@ def setup_autoenv(project_path):
     print(msg)
 
 
-def pip_install_requirements(project_path):
+def pip_install_requirements(project_path, requirements_file_path="requirements.txt"):
     with console.status("[green]Installing requirements..."):
         subprocess.run(
             [
                 f"{project_path}/venv/bin/pip",
                 "install",
                 "-r",
-                os.path.join(project_path, "requirements.txt"),
+                os.path.join(project_path, requirements_file_path),
             ],
             check=True,
             stdout=subprocess.DEVNULL,
@@ -101,7 +101,7 @@ def add_and_install_requirements(project_path, pip_tools):
                     f"{project_path}/venv/bin/pip-compile",
                     os.path.join(project_path, "requirements", "development.in"),
                     "--output-file",
-                    os.path.join(project_path, "requirements.txt"),
+                    os.path.join(project_path, "requirements", "development.txt"),
                 ],
                 check=True,
                 stdout=subprocess.DEVNULL,
@@ -113,7 +113,7 @@ def add_and_install_requirements(project_path, pip_tools):
             attrs=["bold"],
         )
         print(msg)
-        pip_install_requirements(project_path)
+        pip_install_requirements(project_path, "requirements/development.txt")
 
     else:
         copy_requirements_file(project_path)
@@ -186,7 +186,7 @@ def initial_commit(project_path):
     print(msg)
 
 
-def create_project_directory(project_path, interactive=False):
+def create_project_directory(project_path):
     try:
         os.makedirs(project_path)
         msg = colored(

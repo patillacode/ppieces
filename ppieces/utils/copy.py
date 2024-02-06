@@ -34,12 +34,23 @@ def copy_makefile(project_path, pip_tools):
         with open(os.path.join(project_path, "Makefile"), "a") as f:
             f.write(pip_tools_makefile)
 
-    msg = colored(
-        (f"Extended Makefile with pip-tools commands in {project_path}"),
-        "yellow",
-        attrs=["bold"],
-    )
-    print(msg)
+        msg = colored(
+            (f"Extended Makefile with pip-tools commands in {project_path}"),
+            "yellow",
+            attrs=["bold"],
+        )
+        print(msg)
+
+    # if pip_tools is False, we need to add the install-requirements command
+    # to the Makefile since it is different if using pip-tools or not
+    else:
+        install_requirements_command = (
+            "\ninstall-requirements:"
+            "\n\t$(info Installing requirements...)"
+            "\n\t@$(PIP) install -r requirements.txt"
+        )
+        with open(os.path.join(project_path, "Makefile"), "a") as f:
+            f.write(install_requirements_command)
 
 
 def copy_pip_tools_requirements_files(project_path):

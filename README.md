@@ -10,7 +10,7 @@
 Python Project Creator Script -> PPCS -> PythonPieCeS -> ppieces
 
 `ppieces` is a command-line utility designed to streamline the setup of new Python projects.
-It automates various tasks such as creating project directories, initializing git repositories, setting up virtual environments, and installing pre-commit hooks.
+It automates various tasks such as creating project directories, initializing git repositories, setting up virtual environments, handling requirements (with or without pip-tools) and installing pre-commit hooks.
 
 
 ### Why?
@@ -65,10 +65,6 @@ Optional:
 
 ### Usage
 
-1. Run the `ppieces` script.
-2. Follow the interactive prompts to configure your new project.
-3. Start coding!
-
 `ppieces` can be used in an interactive mode (by default) or with command-line options for scripting:
 
 Interactive mode will ask you a series of questions to configure your new project.
@@ -87,15 +83,15 @@ Usage: ppieces [OPTIONS]
 
 Options:
   -ni, --non-interactive     Run the script in non-interactive mode.
-  -p, --project-folder PATH  The path to your projects folder.
+  -f, --project-folder PATH  The path to your projects folder.
   -n, --project-name TEXT    The name of the new project.
   -v, --virtual-env          Create a virtual environment.
-  -g, --git                  Initialize a git repository (with .gitignore and
-                             README files)
-
-  -pre, --pre-commit         Add pre-commit configuration.
+  -g, --git                  Initialize a git repository (with .gitignore and README files)
+  -c, --pre-commit           Add pre-commit configuration.
   -r, --ruff                 Add a ruff configuration file.
   -a, --autoenv              Set up autoenv.
+  -m, --makefile             Add a default Makefile.
+  -p, --pip-tools            Add a default pip-tools setups.
   -u, --username TEXT        GitHub username to use in README (default: $USER)
   --version                  Show the version of ppieces.
   --help                     Show this message and exit.
@@ -103,7 +99,7 @@ Options:
 
 Example usage:
 ```bash
-ppieces -ni -p /Users/dvitto/projects -n test -v -pre -r -a -g -u patillacode
+ppieces -ni -p /home/user/projects -n my_new_project -u my_github_username -mcragvp
 ```
 
 
@@ -112,9 +108,11 @@ ppieces -ni -p /Users/dvitto/projects -n test -v -pre -r -a -g -u patillacode
 - **Project Directory Creation**: Automatically creates a new directory for your project.
 - **Git Repository Initialization**: Initializes a new git repository in the project directory.
 - **Virtual Environment**: Sets up a Python virtual environment within the project.
-- **Autoenv Setup**: Configures autoenv to automatically activate the virtual environment when entering the project directory.
-- **Ruff Configuration**: Adds a default `.ruff.toml` configuration file for the Ruff static analysis tool.
-- **Pre-commit Hooks**: Installs pre-commit hooks to ensure code quality and standards are maintained.
+- **autoenv Setup**: Configures autoenv to automatically activate the virtual environment when entering the project directory.
+- **ruff Configuration**: Adds a default `.ruff.toml` configuration file for the Ruff static analysis tool.
+- **Makefile**: Adds a default `Makefile` for common tasks like installing or running the project.
+- **pip-Tools**: Adds a default `requirements` folder with all the `.in` default requirements files and generates `requirements.txt` file for managing project dependencies with pip-tools.
+- **pre-commit Hooks**: Installs pre-commit hooks to ensure code quality and standards are maintained.
 - **Template Files**: Provides template files like `.gitignore`, `requirements.txt`, and `.pre-commit-config.yaml` to get started quickly.
 
 
@@ -125,6 +123,7 @@ This project makes use of several open-source packages including, but not limite
 - [`bamp`](https://github.com/inirudebwoy/bamp)
 - [`hatch`](https://hatch.pypa.io/latest/)
 - [`icecream`](https://github.com/gruns/icecream)
+- [`pip-tools`](https://github.com/jazzband/pip-tools)
 - [`pre-commit`](https://pre-commit.com/)
 - [`pyfiglet`](https://github.com/pwaller/pyfiglet)
 - [`rich`](https://github.com/Textualize/rich)

@@ -6,13 +6,17 @@ GIT = git
 
 .PHONY: install run
 
-install:
-	$(info Creating virtual environment...)
-	@$(PYTHON_GLOBAL) -m venv venv
-	$(info Upgrading pip...)
-	@$(PIP) install --upgrade pip
-	$(info Installing requirements...)
-	@$(PIP) install -r requirements.txt
+# utils aliases
+install: create-venv upgrade-pip install-requirements
 
+# utils
 run:
 	@$(PYTHON) main.py
+
+create-venv:
+	$(info Creating virtual environment...)
+	@$(PYTHON) -m venv venv
+
+upgrade-pip:
+	$(info Upgrading pip...)
+	@$(PIP) install --upgrade pip
