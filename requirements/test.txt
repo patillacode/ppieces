@@ -4,18 +4,47 @@
 #
 #    pip-compile --output-file=requirements/test.txt requirements/test.in
 #
+asttokens==2.4.1
+    # via icecream
+build==1.0.3
+    # via
+    #   -r requirements/development.in
+    #   pip-tools
 click==8.1.7
     # via
-    #   -c requirements/base.in
+    #   -r requirements/base.in
+    #   pip-tools
     #   pytest-click
+colorama==0.4.6
+    # via icecream
 coverage==7.4.1
     # via -r requirements/test.in
+executing==2.0.1
+    # via icecream
+icecream==2.1.3
+    # via -r requirements/development.in
 iniconfig==2.0.0
     # via pytest
+markdown-it-py==3.0.0
+    # via rich
+mdurl==0.1.2
+    # via markdown-it-py
 packaging==23.2
-    # via pytest
+    # via
+    #   build
+    #   pytest
+pip-tools==7.3.0
+    # via -r requirements/development.in
 pluggy==1.4.0
     # via pytest
+pyfiglet==1.0.2
+    # via -r requirements/base.in
+pygments==2.17.2
+    # via
+    #   icecream
+    #   rich
+pyproject-hooks==1.0.0
+    # via build
 pytest==8.0.0
     # via
     #   -r requirements/test.in
@@ -25,3 +54,15 @@ pytest-click==1.1.0
     # via -r requirements/test.in
 pytest-mock==3.12.0
     # via -r requirements/test.in
+rich==13.7.0
+    # via -r requirements/base.in
+six==1.16.0
+    # via asttokens
+termcolor==2.4.0
+    # via -r requirements/base.in
+wheel==0.42.0
+    # via pip-tools
+
+# The following packages are considered to be unsafe in a requirements file:
+# pip
+# setuptools

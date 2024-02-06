@@ -63,6 +63,12 @@ install-test-requirements:
 	$(info Installing test requirements...)
 	@$(PIP) install -r requirements/test.txt
 
+delete-requirements-txt:
+	$(info Resetting requirements...)
+	@rm -f requirements/*.txt
+
+reset-requirements: delete-requirements-txt build-requirements
+
 # requirements aliases
 build-requirements: build-dev-requirements build-production-requirements build-test-requirements
 dev-requirements: build-dev-requirements install-development-requirements install-package

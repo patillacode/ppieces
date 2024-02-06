@@ -1,4 +1,4 @@
--c development.in
+-r development.in
 
 coverage
 pytest
