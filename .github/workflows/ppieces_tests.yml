@@ -35,8 +35,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Print Python path
-      run: python -c "import sys; print(sys.path)"
+    - name: Set python path
+      run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
     - name: Install dependencies
       run: |
