@@ -21,7 +21,8 @@ def copy_template_file(filename, project_path):
 
 
 def copy_requirements_file(project_path):
-    copy_template_file("requirements.txt", project_path)
+    project_requirements_path = os.path.join(project_path, "requirements")
+    copy_template_file("requirements.txt", project_requirements_path)
 
 
 def copy_makefile(project_path, pip_tools):

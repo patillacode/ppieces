@@ -1,5 +1,5 @@
--c base.txt
+-c base.in
 
+build
 icecream
-ipython
 pip-tools
