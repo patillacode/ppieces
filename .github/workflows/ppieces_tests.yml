@@ -48,7 +48,7 @@ jobs:
 
     - name: Run tests
       run: |
-        coverage run -m pytest -x -vv
+        make coverage-report
 
     - name: Generate coverage badge
       uses: tj-actions/coverage-badge-py@v2

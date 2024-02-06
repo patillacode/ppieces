@@ -78,7 +78,7 @@ test-requirements: build-test-requirements install-test-requirements install-pac
 # tests
 coverage-report:
 	coverage run -m pytest -x
-	coverage json -o "coverage/coverage-summary.json"
+	coverage json -o "coverage-summary.json"
 	coverage report -m
 
 test:
