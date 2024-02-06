@@ -91,48 +91,6 @@ def test_cli_non_interactive_with_piptools(runner, mocker, tmp_path):
     assert (fake_project / "main.py").exists()
 
 
-# @pytest.mark.skip(reason="Integration")
-# def test_cli_non_interactive_without_piptools(runner, mocker, tmp_path):
-#     mocker.patch("ppieces.utils.commands.create_project_directory", return_value=None)
-#     mocker.patch("ppieces.utils.flows.setup_project", return_value=None)
-#     mocker.patch("ppieces.utils.flows.finalize_project", return_value=None)
-
-#     fake_projects_folder = tmp_path / "fake/folder"
-#     fake_projects_folder.mkdir(parents=True, exist_ok=True)
-#     fake_project = fake_projects_folder / "fake_project"
-
-#     result = runner.invoke(
-#         main,
-#         [
-#             "--non-interactive",
-#             f"--project-folder={fake_projects_folder}",
-#             "--project-name=fake_project",
-#             "--virtual-env",
-#             "--git",
-#             "--pre-commit",
-#             "--ruff",
-#             "--autoenv",
-#             "--makefile",
-#             "--username=fake_user",
-#         ],
-#     )
-#     assert result.exit_code == 0
-
-#     # check for the directory and the files that should be created
-#     assert (fake_project).exists()
-#     assert (fake_project / ".git").exists()
-#     assert (fake_project / ".gitignore").exists()
-#     assert (fake_project / ".pre-commit-config.yaml").exists()
-#     assert (fake_project / ".ruff.toml").exists()
-#     assert (fake_project / ".autoenv.sh").exists()
-#     assert (fake_project / ".autoenv_leave.sh").exists()
-#     assert (fake_project / "requirements.txt").exists()
-#     assert (fake_project / "venv").exists()
-#     assert (fake_project / "README.md").exists()
-#     assert (fake_project / "Makefile").exists()
-#     assert (fake_project / "main.py").exists()
-
-
 def test_cli_interactive(runner, mocker, tmp_path):
     fake_projects_folder = tmp_path / "fake/folder"
     fake_projects_folder.mkdir(parents=True, exist_ok=True)
