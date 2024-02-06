@@ -108,11 +108,11 @@ ppieces -ni -p /home/user/projects -n my_new_project -u my_github_username -mcra
 - **Project Directory Creation**: Automatically creates a new directory for your project.
 - **Git Repository Initialization**: Initializes a new git repository in the project directory.
 - **Virtual Environment**: Sets up a Python virtual environment within the project.
-- **Autoenv Setup**: Configures autoenv to automatically activate the virtual environment when entering the project directory.
-- **Ruff Configuration**: Adds a default `.ruff.toml` configuration file for the Ruff static analysis tool.
+- **autoenv Setup**: Configures autoenv to automatically activate the virtual environment when entering the project directory.
+- **ruff Configuration**: Adds a default `.ruff.toml` configuration file for the Ruff static analysis tool.
 - **Makefile**: Adds a default `Makefile` for common tasks like installing or running the project.
-- **Pip-Tools**: Adds a default `requirements` folder with all the `.in` default requirements files and generates `requirements.txt` file for managing project dependencies with pip-tools.
-- **Pre-commit Hooks**: Installs pre-commit hooks to ensure code quality and standards are maintained.
+- **pip-Tools**: Adds a default `requirements` folder with all the `.in` default requirements files and generates `requirements.txt` file for managing project dependencies with pip-tools.
+- **pre-commit Hooks**: Installs pre-commit hooks to ensure code quality and standards are maintained.
 - **Template Files**: Provides template files like `.gitignore`, `requirements.txt`, and `.pre-commit-config.yaml` to get started quickly.
 
 
