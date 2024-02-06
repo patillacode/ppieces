@@ -35,6 +35,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
+    - name: Configure git
+      run: |
+        git config --global user.name 'ppieces User'
+        git config --global user.email 'ppieces@ppieces.com'
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
