@@ -48,7 +48,7 @@ def test_cli_non_interactive_with_piptools(runner, mocker, tmp_path):
     mocker.patch("ppieces.utils.commands.create_project_directory", return_value=None)
     mocker.patch("ppieces.utils.flows.setup_project", return_value=None)
     mocker.patch("ppieces.utils.flows.finalize_project", return_value=None)
-
+    mocker.patch("ppieces.utils.commands.initial_commit", return_value=None)
     fake_projects_folder = tmp_path / "fake/folder"
     fake_projects_folder.mkdir(parents=True, exist_ok=True)
     fake_project = fake_projects_folder / "fake_project"
