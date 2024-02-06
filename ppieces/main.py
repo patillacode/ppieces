@@ -5,9 +5,9 @@ import click
 
 from termcolor import colored
 
-from ppieces import __version__
 from ppieces.utils.cli import run_cli
 from ppieces.utils.validation import validate_options
+from ppieces.version import __version__
 
 
 @click.command()
@@ -142,5 +142,5 @@ def main(
     )
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

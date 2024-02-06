@@ -6,8 +6,8 @@ from ppieces.utils.commands import (
     create_project_directory,
     delete_path,
 )
-from ppieces.utils.flows import finalize_project, get_project_path, setup_project
-from ppieces.utils.prompts import ask_user, bye, welcome
+from ppieces.utils.flows import finalize_project, setup_project
+from ppieces.utils.prompts import ask_user, bye, get_project_path, welcome
 
 
 def run_cli(

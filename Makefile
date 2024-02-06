@@ -69,6 +69,18 @@ dev-requirements: build-dev-requirements install-development-requirements instal
 prod-requirements: build-production-requirements install-production-requirements install-package
 test-requirements: build-test-requirements install-test-requirements install-package
 
+# tests
+coverage-report:
+	coverage run -m pytest -x
+	coverage json -o "coverage/coverage-summary.json"
+	coverage report -m
+
+test:
+	pytest -x
+
+# tests aliases
+cov: coverage-report
+
 # PyPi
 test-pypi-release:
 	$(info Removing old build...)
