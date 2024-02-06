@@ -47,7 +47,7 @@ jobs:
     - name: Generate coverage badge
       uses: tj-actions/coverage-badge-py@v2
       with:
-        output: 'coverage/coverage.svg'
+        output: 'coverage.svg'
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     - name: Push coverage badge

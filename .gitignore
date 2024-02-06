@@ -9,5 +9,5 @@ venv
 
 # coverage
 .coverage
-coverage/*.json
+coverage-summary.json
 htmlcov/
