@@ -1,4 +1,4 @@
--c base.txt
+-c base.in
 
 pytest
 coverage
