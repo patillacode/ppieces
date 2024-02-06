@@ -3,3 +3,4 @@
 build
 icecream
 pip-tools
+pre-commit
