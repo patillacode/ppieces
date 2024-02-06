@@ -42,7 +42,7 @@ def copy_makefile(project_path, pip_tools):
         print(msg)
 
     # if pip_tools is False, we need to add the install-requirements command
-    # to the Makefile since they are different if using pip-tools or not
+    # to the Makefile since it is different if using pip-tools or not
     else:
         install_requirements_command = (
             "\ninstall-requirements:"
