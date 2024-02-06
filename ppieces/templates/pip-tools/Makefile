@@ -1,4 +1,8 @@
 
+install-requirements:
+	$(info Installing requirements...)
+	@$(PIP) install -r requirements/development.txt
+
 # requirements
 build-dev-requirements:
 	$(info Building development requirements...)
