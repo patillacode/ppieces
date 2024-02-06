@@ -45,7 +45,7 @@ def copy_makefile(project_path, pip_tools):
     # to the Makefile since they are different if using pip-tools or not
     else:
         install_requirements_command = (
-            "install-requirements:"
+            "\ninstall-requirements:"
             "\n\t$(info Installing requirements...)"
             "\n\t@$(PIP) install -r requirements.txt"
         )
