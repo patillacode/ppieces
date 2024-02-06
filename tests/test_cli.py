@@ -69,6 +69,8 @@ def test_cli_non_interactive_with_piptools(runner, mocker, tmp_path):
             "--username=fake_user",
         ],
     )
+    print(result.output)
+    print(result.exception)
     assert result.exit_code == 0
 
     # check for the directory and the files that should be created
