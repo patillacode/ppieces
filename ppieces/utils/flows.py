@@ -1,7 +1,3 @@
-import os
-
-from termcolor import colored
-
 from ppieces.utils.commands import (
     create_virtual_environment,
     initial_commit,
@@ -15,31 +11,6 @@ from ppieces.utils.copy import (
     copy_precommit_config,
     copy_ruff_config,
 )
-from ppieces.utils.validation import validate_project_name, validate_projects_folder_path
-
-
-def get_project_path():
-    default_projects_folder_path = os.path.join(os.getenv("HOME"), "projects")
-    projects_folder_path = input(
-        colored(
-            "Enter the absolute path of your projects folder (default: "
-            f"{default_projects_folder_path}): ",
-            "cyan",
-            attrs=["bold"],
-        )
-    )
-
-    if not projects_folder_path:
-        projects_folder_path = default_projects_folder_path
-
-    validate_projects_folder_path(projects_folder_path)
-
-    project_name = input(
-        colored("Enter the name of your new project: ", "cyan", attrs=["bold"])
-    )
-    validate_project_name(project_name)
-
-    return os.path.join(projects_folder_path, project_name)
 
 
 def setup_project(

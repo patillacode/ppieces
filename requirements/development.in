@@ -1,5 +1,6 @@
--c base.in
+-r base.in
 
 build
 icecream
 pip-tools
+pre-commit
