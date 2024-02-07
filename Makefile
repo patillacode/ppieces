@@ -119,7 +119,7 @@ major:
 
 commit-bamp:
 	$(info Committing changes...)
-	@$(GIT) add bamp.cfg ppieces/__init__.py pyproject.toml
+	@$(GIT) add bamp.cfg ppieces/version.py pyproject.toml
 	@$(GIT) commit -m "Bamp version to $(shell $(BAMP) current)"
 
 # bamping aliases
