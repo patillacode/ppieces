@@ -1,6 +1,6 @@
 | Latest Version | Downloads | Tests |
 |----------------|-----------|-------|
-[![PyPI version](https://badge.fury.io/py/ppieces.svg)](https://badge.fury.io/py/ppieces)|[![Downloads](https://pepy.tech/badge/ppieces)](https://pepy.tech/project/ppieces)|[![cov](https://github.com/patillacode/ppieces/blob/main/badges/coverage.svg)](https://github.com/patillacode/ppieces/actions)
+[![PyPI version](https://badge.fury.io/py/ppieces.svg)](https://badge.fury.io/py/ppieces)|[![Downloads](https://pepy.tech/badge/ppieces)](https://pepy.tech/project/ppieces)|[![cov](https://github.com/patillacode/ppieces/blob/main/coverage.svg)](https://github.com/patillacode/ppieces/actions)
 
 
 # ppieces
