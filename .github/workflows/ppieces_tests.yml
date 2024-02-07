@@ -1,8 +1,6 @@
 name: ppieces Tests
 
 on:
-  push:
-    branches: [ main]
   pull_request:
     branches: [ main ]
 
@@ -54,10 +52,8 @@ jobs:
       uses: tj-actions/coverage-badge-py@v2
       with:
         output: 'coverage.svg'
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     - name: Push coverage badge
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "Automatic GH Actions: coverage badge"
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
